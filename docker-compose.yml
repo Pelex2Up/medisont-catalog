@@ -13,3 +13,7 @@ services:
              yarn serve"
 
              version: "3.9"   
+networks:
+  default:
+    external: true
+    name: postgres_network  
