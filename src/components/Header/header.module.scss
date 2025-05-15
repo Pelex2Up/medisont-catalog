@@ -1,0 +1,205 @@
+.wrapper {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 130px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  padding: 0 50px;
+  font-family: "Segoe UI", Arial, sans-serif;
+  justify-content: space-between;
+  gap: 30px;
+  -webkit-font-smoothing: antialiased;
+  background-color: #ffffff;
+
+  &_logo {
+    height: 80px;
+    width: 251px;
+    object-fit: contain;
+  }
+
+  &_navBlock {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: flex-end;
+
+    &_navElement {
+      cursor: pointer;
+      list-style-type: none;
+      box-sizing: content-box;
+      clear: both;
+      font-family: "Segoe UI Bold", Arial, sans-serif;
+      display: inline-block;
+      margin: 0;
+      font-size: 18px;
+      color: #2b2b2b;
+      font-weight: 800;
+      white-space: nowrap;
+      height: 130px;
+      padding: 0 15px 0 0;
+      vertical-align: middle;
+      line-height: 1.5;
+      transition: color 0.3s ease-in;
+      position: relative;
+      display: inline-flex;
+      gap: 5px;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        color: #ff0000;
+
+        .arrow {
+          color: #ff0000;
+          &::after {
+            transform: translateY(-50%) rotate(180deg);
+          }
+        }
+
+        .wrapper_navBlock_navElement_dropDownMenu {
+          display: flex;
+        }
+      }
+
+      &_dropDownMenu {
+        display: none;
+        position: absolute;
+        margin: 0;
+        top: calc(50% + 30px);
+        left: 50%;
+        background-color: #ffffff;
+        height: auto;
+        max-width: 195px;
+        min-width: 100px;
+        transform: translateX(-50%);
+        box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.1);
+        padding: 18px 20px;
+        border-radius: 3px;
+
+        &_content {
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+          justify-content: flex-start;
+          overflow-y: scroll;
+          height: auto;
+          max-height: 410px;
+        }
+
+        &_corner {
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%) rotate(45deg);
+          background-color: #ffffff;
+          top: -6.5px;
+          width: 20px;
+          height: 20px;
+          border-color: #eee;
+          border-width: 0;
+          border-style: none;
+        }
+
+        &_item {
+          cursor: pointer;
+          color: #2b2b2b;
+          font-family: "Segoe UI Semibold", "Open Sans", Helvetica, sans-serif;
+          font-size: 13px;
+          width: 100%;
+          font-weight: 800;
+          line-height: 15px;
+          letter-spacing: 0.5px;
+          width: 100%;
+          text-align: start;
+
+          &:hover {
+            color: #e62229;
+          }
+        }
+      }
+    }
+  }
+}
+
+.button {
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI Bold", Arial, sans-serif;
+  border: 0 none;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  font-weight: 700;
+  background-image: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  user-select: none;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  font-size: 15px;
+  padding-left: 30px;
+  padding-right: 30px;
+  outline: none;
+  text-decoration: none;
+  transition-property: background-color, color, border-color, box-shadow;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+  color: #ffffff;
+  background-color: #ff0000;
+  -webkit-border-radius: 20px;
+  text-decoration: none;
+
+  &:hover {
+    background-color: #000000;
+    color: #ffffff;
+  }
+}
+
+.arrow {
+  -webkit-font-smoothing: antialiased;
+  list-style-type: none;
+  white-space: nowrap;
+  font-size: 16px;
+  color: #000000;
+  font-weight: 700;
+  font-family: "Segoe UI Bold", Arial, sans-serif;
+  box-sizing: content-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 6px;
+  margin-top: 4px;
+  position: relative;
+  border-color: inherit;
+  transition: all 0.3s ease-in;
+
+  &::after {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 4px 3px 0 3px;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    border-color: transparent transparent transparent transparent;
+    border-top-color: inherit;
+    transition: -webkit-transform 0.3s;
+    transition: transform 0.3s;
+    transition: transform 0.3s, -webkit-transform 0.3s;
+  }
+}

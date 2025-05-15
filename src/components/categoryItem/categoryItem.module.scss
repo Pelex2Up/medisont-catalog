@@ -1,0 +1,44 @@
+.wrapper {
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  text-align: left;
+  box-sizing: content-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: #e62229;
+  line-height: 1.35;
+  cursor: pointer;
+  display: inline-flex;
+  position: relative;
+  font-size: 15px;
+  opacity: 0.9;
+  align-items: center;
+
+  &:hover {
+    font-weight: 600;
+    font-family: "Segoe UI Semibold", Arial, sans-serif;
+  }
+}
+
+.selected {
+  font-weight: 600;
+  font-family: "Segoe UI Semibold", Arial, sans-serif;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 10px;
+
+  &_subcats {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-left: 15px;
+    gap: 10px;
+  }
+}

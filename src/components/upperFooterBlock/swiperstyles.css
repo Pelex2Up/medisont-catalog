@@ -1,0 +1,40 @@
+:root {
+  --swiper-navigation-size: 0 !important;
+}
+
+.swiper-slide {
+    margin: 0 auto;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  list-style: none;
+  box-sizing: content-box;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  outline-offset: 5px;
+  padding: 0;
+  position: absolute;
+  transform: translateY(-50%);
+  border-radius: 100px;
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  outline: none;
+  width: 60px !important;
+  height: 60px !important;
+  background-color: rgb(232, 232, 232);
+  color: black !important;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  font-size: 26px !important;
+  font-weight: 200 !important;
+}
+
+.swiper-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}

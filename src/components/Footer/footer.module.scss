@@ -1,0 +1,84 @@
+.wrapper {
+  height: 756px;
+  width: 100%;
+  background-color: #111111;
+  padding: 75px 0;
+
+  &_upperBlock {
+    max-width: 1200px;
+    display: flex;
+    margin: 0 auto;
+
+    &_logoBlock {
+      display: flex;
+      flex-direction: column;
+      gap: 21px;
+      justify-content: flex-start;
+      align-items: flex-start;
+      margin-right: 40px;
+      -webkit-font-smoothing: antialiased;
+      text-align: left;
+      box-sizing: content-box;
+      float: left;
+      width: 100%;
+      max-width: 260px;
+
+      &_logo {
+        width: 120px;
+        height: 120px;
+        object-fit: contain;
+      }
+
+      &_text {
+        text-align: left;
+        font-size: 14px;
+        color: #525252;
+      }
+    }
+
+    &_kontakty {
+      -webkit-font-smoothing: antialiased;
+      text-align: left;
+      box-sizing: content-box;
+      display: inline;
+      float: left;
+      margin-right: 40px;
+      width: 100%;
+      max-width: 260px;
+
+      &_upperText {
+        -webkit-font-smoothing: antialiased;
+        text-align: left;
+        box-sizing: content-box;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 1.35;
+        margin-bottom: 14px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        font-family: "Segoe UI Semibold", Arial, sans-serif;
+        color: #ffffff;
+      }
+
+      &_lowerText {
+        margin-top: 14px;
+        -webkit-font-smoothing: antialiased;
+        text-align: left;
+        font-weight: 400;
+        line-height: 1.55;
+        box-sizing: content-box;
+        font-size: 16px;
+        color: #ffffff;
+
+        a {
+          text-decoration: none;
+          color: #ffffff;
+        }
+      }
+    }
+  }
+}
+
+.adressLink {
+  color: rgb(255, 174, 0) !important;
+}

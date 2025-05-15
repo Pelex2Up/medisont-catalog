@@ -1,0 +1,279 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { FC, useCallback, useEffect, useState } from "react";
+import {
+  useGetCatalogDataMutation,
+  useGetCategoriesQuery,
+} from "../../api/catalogService";
+import styles from "./catalogPage.module.scss";
+import { CatalogItem } from "../../components/catalogItem";
+import { Pagination } from "../../components/pagination";
+import { usePagination } from "../../customHooks/usePagination";
+import Slider from "@mui/material/Slider";
+import { CatalogResponseT, CategoryT } from "../../api/apiTypes";
+import { SkeletonCatalogItem } from "../../components/sceleton/catalogItemsSceleton";
+import { CategoryItem } from "../../components/categoryItem";
+import { Checkbox } from "@mui/material";
+import { useLocation, useSearchParams } from "react-router";
+import { debounce } from "lodash";
+
+export interface IParent {
+  id: number;
+  external_id: string;
+  name: string;
+  childs: CategoryT[];
+}
+
+export const CatalogPage: FC = () => {
+  const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams(location.search);
+  const [currentPage, setPage] = useState<number>(1);
+  const [priceValue, setPriceValue] = useState<number[]>([0, 100000]);
+  const [selectedCategory, setSelectedCategory] = useState<
+    CategoryT | IParent
+  >();
+  const [checked, setChecked] = useState<boolean>(false);
+  const [getPageData, { data, isLoading: isFetching }] =
+    useGetCatalogDataMutation();
+  const [catalogData, setCatalogData] = useState<
+    CatalogResponseT | undefined
+  >();
+  const { data: categoriesData } = useGetCategoriesQuery();
+  const { page, onPageChange, paginationRange } = usePagination({
+    totalCount: catalogData?.count as number,
+    currentPage: currentPage,
+  });
+  const [groupedCategories, setGroupedCategories] = useState<IParent[]>([]);
+  const [priceRange, setPriceRange] = useState<{ min: number; max: number }>();
+
+  const updateUrl = async (newParams: any) => {
+    const currentParams = Object.fromEntries(searchParams);
+    const updatedParams = { ...currentParams, ...newParams };
+    await setSearchParams(updatedParams);
+    const filteredParams = filterObjectByValues(updatedParams);
+    const newUrl = new URLSearchParams(filteredParams);
+    await setSearchParams(filteredParams);
+    await debouncedUpdateData(`?${newUrl.toString()}`);
+  };
+
+  const debouncedUpdateData = useCallback(
+    debounce(
+      (params: string) =>
+        getPageData(params)
+          .unwrap()
+          .then((data) => setCatalogData(data)),
+      500
+    ),
+    [getPageData]
+  );
+
+  const getPageDataMemo = useCallback(
+    (params: string) => getPageData(params).unwrap(),
+    [getPageData]
+  );
+
+  const handleChange = (event: Event, newValue: number[]) => {
+    onPageChange(1);
+    setPriceValue(newValue);
+    updateUrl({
+      min_price: newValue[0],
+      max_price: newValue[1],
+      page: 1,
+    });
+  };
+
+  function filterObjectByValues(obj: Record<string, any>): Record<string, any> {
+    return Object.fromEntries(
+      Object.entries(obj).filter(([_, value]) => String(value).length > 0)
+    );
+  }
+
+  // Отделяем родительские категории
+  function buildParentCategories(categories: CategoryT[]): IParent[] {
+    const parents = categories
+      .filter((cat) => cat.parent === null || cat.main_tree === true)
+      .sort((a, b) => a.priority - b.priority);
+
+    return parents.map((parent) => ({
+      id: parent.id,
+      external_id: parent.external_id,
+      name: parent.name,
+      childs: categories.filter(
+        (child) => child.parent === parent.id && !child.main_tree
+      ),
+    }));
+  }
+
+  useEffect(() => {
+    if (categoriesData) {
+      const groupedCat = buildParentCategories(categoriesData);
+      if (groupedCat.length > 0) {
+        setGroupedCategories(groupedCat);
+      }
+    }
+  }, [categoriesData]);
+
+  useEffect(() => {
+    if (!data && !isFetching && searchParams && location) {
+      getPageDataMemo(`?${searchParams}`).then((data) => setCatalogData(data));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [isFetching, data, searchParams]);
+
+  useEffect(() => {
+    if (catalogData && !priceRange) {
+      setPriceRange({
+        min: catalogData.price_min_value,
+        max: catalogData.price_max_value,
+      });
+    }
+    // if (priceValue[0] === 0 && priceValue[1] === 100000 && catalogData)
+    //   setPriceValue([catalogData.price_min_value, catalogData.price_max_value]);
+  }, [catalogData, priceRange]);
+
+  const handleCategoryClick = (category: IParent | CategoryT | null) => {
+    if (category) {
+      onPageChange(1);
+      setSelectedCategory(category);
+      updateUrl({ category: category.id, page: 1 });
+    } else {
+      setSelectedCategory(undefined);
+      onPageChange(1);
+      searchParams.delete("category");
+      updateUrl(searchParams);
+    }
+  };
+
+  const handlePageChange = (page: number) => {
+    if (page) {
+      setPage(page);
+      onPageChange(page);
+      updateUrl({ page: page });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(!checked);
+    if (!checked) {
+      updateUrl({ available: !checked });
+    } else {
+      searchParams.delete("available");
+      updateUrl(searchParams);
+    }
+  };
+
+  return (
+    <div style={{ position: "relative", marginBottom: "4rem" }}>
+      <div className={styles.wrapper}>
+        <div className={styles.wrapper_filters}>
+          <div className={styles.wrapper_filters_categories}>
+            <span
+              onClick={() => handleCategoryClick(null)}
+              className={`${!selectedCategory ? styles.selected : ""} ${
+                styles.allCatSelector
+              }`}
+            >
+              Все категории
+            </span>
+            {groupedCategories.map((category) => (
+              <CategoryItem
+                key={category.id}
+                category={category}
+                onChange={handleCategoryClick}
+                selected={selectedCategory}
+              />
+            ))}
+          </div>
+          {priceRange && (
+            <div className={styles.wrapper_filters_priceSlider}>
+              <span className={styles.wrapper_filters_priceSlider_title}>
+                Цена (BYN)
+              </span>
+              <Slider
+                getAriaLabel={() => "Price range"}
+                value={priceValue}
+                onChange={handleChange}
+                valueLabelDisplay="auto"
+                min={priceRange?.min}
+                max={priceRange?.max}
+                color="primary"
+                sx={{ width: "300px", marginLeft: "10px" }}
+              />
+              <div className={styles.wrapper_filters_priceSlider_range}>
+                <input
+                  type="text"
+                  className={styles.wrapper_filters_priceSlider_range_input}
+                  value={
+                    priceRange.min > priceValue[0]
+                      ? priceRange.min
+                      : priceValue[0]
+                  }
+                  onChange={(event) =>
+                    setPriceValue([Number(event.target.value), priceValue[1]])
+                  }
+                />
+                -
+                <input
+                  type="text"
+                  className={styles.wrapper_filters_priceSlider_range_input}
+                  value={
+                    priceValue[1] < priceRange.max
+                      ? priceValue[1]
+                      : priceRange.max
+                  }
+                  onChange={(event) =>
+                    setPriceValue([priceValue[0], Number(event.target.value)])
+                  }
+                />
+              </div>
+            </div>
+          )}
+          <div className={styles.wrapper_filters_available}>
+            <span className={styles.wrapper_filters_available_title}>
+              Доступные товары
+            </span>
+            <div className={styles.wrapper_filters_available_box}>
+              <Checkbox checked={checked} onChange={handleCheck} /> Только
+              товары в наличии
+            </div>
+          </div>
+        </div>
+        {isFetching ? (
+          <div className={styles.wrapper_catalog}>
+            {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((index) => (
+              <SkeletonCatalogItem key={index} />
+            ))}
+          </div>
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "4rem",
+              width: "100%",
+            }}
+          >
+            <div className={styles.wrapper_catalog}>
+              {catalogData?.results.length ? (
+                catalogData?.results.map((item) => (
+                  <CatalogItem product={item} key={item.group_code} />
+                ))
+              ) : (
+                <span style={{ fontSize: "20px", margin: "0 auto" }}>
+                  Не найдено подходящих товаров...
+                </span>
+              )}
+            </div>
+            <Pagination
+              currentPage={page}
+              paginationRange={paginationRange}
+              onPageChange={handlePageChange}
+            />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};

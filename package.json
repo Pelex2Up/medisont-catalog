@@ -1,0 +1,51 @@
+{
+  "name": "medisont-catalog",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^7.1.0",
+    "@mui/material": "^7.1.0",
+    "@reduxjs/toolkit": "^1.9.5",
+    "@types/classnames": "^2.3.4",
+    "@types/lodash": "^4.17.16",
+    "@types/react-image-gallery": "^1.2.4",
+    "@types/redux-persist": "^4.3.1",
+    "@types/swiper": "^6.0.0",
+    "classnames": "^2.5.1",
+    "framer-motion": "^12.9.1",
+    "html-react-parser": "^5.2.5",
+    "lodash": "^4.17.21",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-image-gallery": "^1.4.0",
+    "react-loader-spinner": "^6.1.6",
+    "react-redux": "^9.2.0",
+    "react-router": "^7.5.2",
+    "redux-persist": "^6.0.0",
+    "sass": "^1.87.0",
+    "sass-embedded": "^1.87.0",
+    "swiper": "^11.2.6"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.22.0",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^9.22.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^16.0.0",
+    "typescript": "~5.7.2",
+    "typescript-eslint": "^8.26.1",
+    "vite": "^6.3.1"
+  }
+}
