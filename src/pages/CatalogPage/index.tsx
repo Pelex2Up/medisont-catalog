@@ -72,7 +72,7 @@ export const CatalogPage: FC = () => {
     [getPageData]
   );
 
-  const handleChange = (event: Event, newValue: number[]) => {
+  const handleChange = (newValue: number[]) => {
     onPageChange(1);
     setPriceValue(newValue);
     updateUrl({
@@ -153,7 +153,7 @@ export const CatalogPage: FC = () => {
     }
   };
 
-  const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCheck = () => {
     setChecked(!checked);
     if (!checked) {
       updateUrl({ available: !checked });
