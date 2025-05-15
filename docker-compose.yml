@@ -4,10 +4,12 @@ services:
     build:
       context: .
     ports:
-      - "127.0.0.1:8080:3000"
+      - "3000:3000"
     volumes:
       - ".:/app"
     command: >
       sh -c "yarn install &&
              yarn build &&
              yarn serve"
+
+             version: "3.9"   
