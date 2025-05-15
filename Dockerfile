@@ -1,4 +1,4 @@
-FROM node:21.7.3 AS build
+FROM node:latest
 WORKDIR /code
 COPY package.json yarn.lock ./
 RUN yarn install
