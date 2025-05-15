@@ -72,7 +72,8 @@ export const CatalogPage: FC = () => {
     [getPageData]
   );
 
-  const handleChange = (newValue: number[]) => {
+  const handleChange = (event: Event, newValue: number[]) => {
+    event.preventDefault()
     onPageChange(1);
     setPriceValue(newValue);
     updateUrl({
