@@ -119,6 +119,7 @@ export const Header: FC = () => {
         <a
           href="https://medisont.by/kontakty"
           className={styles["wrapper_navBlock_navElement"]}
+          style={{ padding: 0 }}
         >
           Контакты
         </a>
@@ -126,10 +127,11 @@ export const Header: FC = () => {
       <div
         style={{
           lineHeight: "18px",
-          minWidth: "180px",
+          minWidth: "156px",
           display: "flex",
           flexDirection: "column",
-          gap: "2px",
+          gap: "1px",
+          marginTop: '-10px'
         }}
       >
         <a
@@ -138,7 +140,7 @@ export const Header: FC = () => {
             fontSize: "32px",
             width: "100%",
             textAlign: "justify",
-            lineHeight: "36px",
+            lineHeight: 1,
             color: "#000000",
             textDecoration: "none",
           }}
