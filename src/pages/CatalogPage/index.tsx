@@ -133,6 +133,18 @@ export const CatalogPage: FC = () => {
   }, [isFetching, data, searchParams, selectedCategory]);
 
   useEffect(() => {
+    const categoryId = searchParams.get("category");
+    if (categoryId && categoriesData && !selectedCategory) {
+      const selectedCat = categoriesData.find(
+        (category) => String(category.id) === categoryId
+      );
+      if (selectedCat) {
+        setSelectedCategory(selectedCat);
+      }
+    }
+  }, [searchParams, categoriesData]);
+
+  useEffect(() => {
     if (catalogData && !priceRange) {
       setPriceRange({
         min: catalogData.price_min_value,
@@ -152,7 +164,7 @@ export const CatalogPage: FC = () => {
       setSelectedCategory(undefined);
       onPageChange(1);
       searchParams.delete("category");
-      updateUrl(searchParams);
+      setCatalogData(undefined);
     }
   };
 
@@ -181,23 +193,26 @@ export const CatalogPage: FC = () => {
         <div className={styles.wrapper_filters}>
           <div className={styles.wrapper_filters_categories}>
             <span
-              onClick={() => handleCategoryClick(null)}
+              onClick={() => {
+                handleCategoryClick(null);
+              }}
               className={`${!selectedCategory ? styles.selected : ""} ${
                 styles.allCatSelector
               }`}
             >
               Все категории
             </span>
-            {groupedCategories.map((category) =>
-              category.product_count > 0 ? (
-                <CategoryItem
-                  key={category.id}
-                  category={category}
-                  onChange={handleCategoryClick}
-                  selected={selectedCategory}
-                />
-              ) : null
-            )}
+            {groupedCategories &&
+              groupedCategories.map((category) =>
+                category.product_count > 0 ? (
+                  <CategoryItem
+                    key={category.id}
+                    category={category}
+                    onChange={handleCategoryClick}
+                    selected={selectedCategory}
+                  />
+                ) : null
+              )}
           </div>
           {priceRange && (
             <div className={styles.wrapper_filters_priceSlider}>
@@ -269,10 +284,10 @@ export const CatalogPage: FC = () => {
               width: "100%",
             }}
           >
-            {selectedCategory ? (
+            {selectedCategory && catalogData ? (
               <div className={styles.wrapper_catalog}>
-                {catalogData?.results.length ? (
-                  catalogData?.results.map((item) => (
+                {catalogData.results.length ? (
+                  catalogData.results.map((item) => (
                     <CatalogItem product={item} key={item.group_code} />
                   ))
                 ) : (

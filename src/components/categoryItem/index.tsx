@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import styles from "./categoryItem.module.scss";
 import { CategoryT } from "../../api/apiTypes";
 import { IParent } from "../../pages/CatalogPage";
@@ -17,6 +17,18 @@ export const CategoryItem: FC<ICategoryItem> = ({
   selected,
 }) => {
   const [open, setOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (selected) {
+      const selectedThis = category.childs.find(
+        (child) => child.id === selected.id
+      );
+      if (selectedThis) {
+        setOpen(true);
+      }
+    }
+  }, [category, selected]);
+
   return (
     <div className={styles.box}>
       <span
@@ -50,6 +62,7 @@ export const CategoryItem: FC<ICategoryItem> = ({
                 className={`${
                   selected && selected.id === child.id ? styles.selected : ""
                 } ${styles.wrapper}`}
+                key={child.external_id}
               >
                 - {child.name}
               </span>
