@@ -38,4 +38,9 @@ export type CategoryT = {
   image: string;
   priority: number;
   main_tree: boolean;
+  product_count: number;
+  params: {
+    name: string;
+    values: string[];
+  }[];
 };

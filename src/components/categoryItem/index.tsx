@@ -43,16 +43,18 @@ export const CategoryItem: FC<ICategoryItem> = ({
       </span>
       {open && category.childs.length > 0 && (
         <div className={styles.box_subcats}>
-          {category.childs.map((child) => (
-            <span
-              onClick={() => onChange(child)}
-              className={`${
-                selected && selected.id === child.id ? styles.selected : ""
-              } ${styles.wrapper}`}
-            >
-              - {child.name}
-            </span>
-          ))}
+          {category.childs.map((child) =>
+            child.product_count > 0 ? (
+              <span
+                onClick={() => onChange(child)}
+                className={`${
+                  selected && selected.id === child.id ? styles.selected : ""
+                } ${styles.wrapper}`}
+              >
+                - {child.name}
+              </span>
+            ) : null
+          )}
         </div>
       )}
     </div>

@@ -1,0 +1,96 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  gap: 1rem;
+  cursor: pointer;
+
+  &:hover {
+    .wrapper_image {
+      border: 1px solid #e62229;
+      // background-size: cover;
+    }
+  }
+
+  &_image {
+    transition: all ease-in 0.3s;
+    // object-fit: fill;
+    width: 100%;
+    height: 300px;
+    border: 1px solid transparent;
+    position: relative;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-end;
+    transition: all linear 0.5s;
+    overflow: hidden;
+
+    &:hover {
+      .productWrapper_image_colors {
+        transform: translateY(0);
+      }
+    }
+
+    &_colors {
+      transition: all linear 0.7s;
+      transform: translateY(600px);
+      display: flex;
+      flex-direction: row-reverse;
+      // align-content: flex-end;
+      align-items: center;
+      flex-wrap: wrap-reverse;
+      width: 100%;
+      z-index: 3;
+
+      &_item {
+        border: 1px solid #ffffff;
+        height: 41.39px;
+        width: 41.39px;
+        object-fit: fill;
+        z-index: 4;
+
+        &:hover {
+          border: 1px solid #e62229;
+        }
+      }
+    }
+
+    &_bg {
+      position: absolute;
+      left: 0;
+      top: 0;
+      object-fit: fill;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+  }
+
+  &_name {
+    font-family: "Segoe UI Bold", Arial, sans-serif;
+    font-weight: 600;
+    color: #e62229;
+    font-size: 20px;
+    line-height: 1.35;
+    width: 100%;
+    text-align: start;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &_price {
+    display: inline-block;
+    max-width: 100%;
+    vertical-align: middle;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-weight: 600;
+    color: #e62229;
+    font-size: 16px;
+    line-height: 1.35;
+    width: 100%;
+    text-align: start;
+  }
+}

@@ -7,7 +7,7 @@ export const catalogService = createApi({
   baseQuery,
   endpoints: (build) => ({
     getCatalogData: build.mutation<CatalogResponseT, string>({
-      query: (url) => `/grouped-products/v2/${url}`,
+      query: (url) => `/grouped-products/v3/${url}`,
     }),
     getCategories: build.query<CategoryT[], void>({
       query: () => "/categories/",

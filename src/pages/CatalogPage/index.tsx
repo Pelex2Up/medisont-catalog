@@ -16,12 +16,19 @@ import { CategoryItem } from "../../components/categoryItem";
 import { Checkbox } from "@mui/material";
 import { useLocation, useSearchParams } from "react-router";
 import { debounce } from "lodash";
+import { CategoryImageItem } from "../../components/categoryImageItem";
 
 export interface IParent {
   id: number;
   external_id: string;
   name: string;
   childs: CategoryT[];
+  image: string;
+  product_count: number;
+  params: {
+    name: string;
+    values: string[];
+  }[];
 }
 
 export const CatalogPage: FC = () => {
@@ -38,7 +45,8 @@ export const CatalogPage: FC = () => {
   const [catalogData, setCatalogData] = useState<
     CatalogResponseT | undefined
   >();
-  const { data: categoriesData } = useGetCategoriesQuery();
+  const { data: categoriesData, isFetching: isFetchingCategories } =
+    useGetCategoriesQuery();
   const { page, onPageChange, paginationRange } = usePagination({
     totalCount: catalogData?.count as number,
     currentPage: currentPage,
@@ -73,7 +81,7 @@ export const CatalogPage: FC = () => {
   );
 
   const handleChange = (event: Event, newValue: number[]) => {
-    event.preventDefault()
+    event.preventDefault();
     onPageChange(1);
     setPriceValue(newValue);
     updateUrl({
@@ -99,9 +107,12 @@ export const CatalogPage: FC = () => {
       id: parent.id,
       external_id: parent.external_id,
       name: parent.name,
+      image: parent.image,
       childs: categories.filter(
         (child) => child.parent === parent.id && !child.main_tree
       ),
+      params: parent.params,
+      product_count: parent.product_count,
     }));
   }
 
@@ -115,11 +126,11 @@ export const CatalogPage: FC = () => {
   }, [categoriesData]);
 
   useEffect(() => {
-    if (!data && !isFetching && searchParams && location) {
+    if (!data && !isFetching && searchParams && location && selectedCategory) {
       getPageDataMemo(`?${searchParams}`).then((data) => setCatalogData(data));
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
-  }, [isFetching, data, searchParams]);
+  }, [isFetching, data, searchParams, selectedCategory]);
 
   useEffect(() => {
     if (catalogData && !priceRange) {
@@ -177,14 +188,16 @@ export const CatalogPage: FC = () => {
             >
               Все категории
             </span>
-            {groupedCategories.map((category) => (
-              <CategoryItem
-                key={category.id}
-                category={category}
-                onChange={handleCategoryClick}
-                selected={selectedCategory}
-              />
-            ))}
+            {groupedCategories.map((category) =>
+              category.product_count > 0 ? (
+                <CategoryItem
+                  key={category.id}
+                  category={category}
+                  onChange={handleCategoryClick}
+                  selected={selectedCategory}
+                />
+              ) : null
+            )}
           </div>
           {priceRange && (
             <div className={styles.wrapper_filters_priceSlider}>
@@ -240,7 +253,7 @@ export const CatalogPage: FC = () => {
             </div>
           </div>
         </div>
-        {isFetching ? (
+        {isFetching || isFetchingCategories ? (
           <div className={styles.wrapper_catalog}>
             {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((index) => (
               <SkeletonCatalogItem key={index} />
@@ -256,22 +269,38 @@ export const CatalogPage: FC = () => {
               width: "100%",
             }}
           >
-            <div className={styles.wrapper_catalog}>
-              {catalogData?.results.length ? (
-                catalogData?.results.map((item) => (
-                  <CatalogItem product={item} key={item.group_code} />
-                ))
-              ) : (
-                <span style={{ fontSize: "20px", margin: "0 auto" }}>
-                  Не найдено подходящих товаров...
-                </span>
-              )}
-            </div>
-            <Pagination
-              currentPage={page}
-              paginationRange={paginationRange}
-              onPageChange={handlePageChange}
-            />
+            {selectedCategory ? (
+              <div className={styles.wrapper_catalog}>
+                {catalogData?.results.length ? (
+                  catalogData?.results.map((item) => (
+                    <CatalogItem product={item} key={item.group_code} />
+                  ))
+                ) : (
+                  <span style={{ fontSize: "20px", margin: "0 auto" }}>
+                    Не найдено подходящих товаров...
+                  </span>
+                )}
+              </div>
+            ) : (
+              <div className={styles.wrapper_catalog}>
+                {groupedCategories.map((category) =>
+                  category.product_count > 0 ? (
+                    <CategoryImageItem
+                      key={category.id}
+                      category={category}
+                      onChange={handleCategoryClick}
+                    />
+                  ) : null
+                )}
+              </div>
+            )}
+            {selectedCategory && (
+              <Pagination
+                currentPage={page}
+                paginationRange={paginationRange}
+                onPageChange={handlePageChange}
+              />
+            )}
           </div>
         )}
       </div>
