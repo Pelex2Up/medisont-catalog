@@ -34,6 +34,9 @@ export const ProductPage: FC = () => {
     useLazyGetGroupDataQuery();
   const { data: categoriesData } = useGetCategoriesQuery();
   const [groupedCategories, setGroupedCategories] = useState<IParent[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<
+    IParent | CategoryT
+  >();
 
   const [slides, setSlides] = useState<ReactImageGalleryItem[]>();
 
@@ -94,6 +97,18 @@ export const ProductPage: FC = () => {
     }
   }, [itemsData, itemId]);
 
+  useEffect(() => {
+    if (itemsData && categoriesData && !selectedCategory) {
+      const selectedCat = categoriesData.find(
+        (category) => category.id === Number(itemsData[selectedIndex].category)
+      );
+
+      if (selectedCat) {
+        setSelectedCategory(selectedCat);
+      }
+    }
+  }, [categoriesData, itemsData, selectedCategory, selectedIndex]);
+
   const handleCategoryClick = (category: IParent | CategoryT | null) => {
     if (category) {
       navigate(generatePath(PathE.HOME + `?page=1&category=${category.id}`));
@@ -105,7 +120,7 @@ export const ProductPage: FC = () => {
   }
 
   return (
-    <>
+    <div>
       <button
         className={styles.backBtn}
         onClick={() => navigate(generatePath(PathE.HOME))}
@@ -125,12 +140,10 @@ export const ProductPage: FC = () => {
           </span>
           {groupedCategories.map((category) => (
             <CategoryItem
-              key={category.id}
+              key={category.external_id}
               category={category}
               onChange={handleCategoryClick}
-              selected={categoriesData?.find(
-                (cat) => itemsData[selectedIndex].category === String(cat.id)
-              )}
+              selected={selectedCategory}
             />
           ))}
         </div>
@@ -157,9 +170,9 @@ export const ProductPage: FC = () => {
             className={styles.wrapper_rightSide_price}
           >{`${itemsData[selectedIndex].price} ${itemsData[selectedIndex].currency}`}</span>
           {itemsData[selectedIndex].description && (
-            <p className={styles.wrapper_rightSide_text}>
+            <div className={styles.wrapper_rightSide_text}>
               {parse(itemsData[selectedIndex].description)}
-            </p>
+            </div>
           )}
         </div>
       </div>
@@ -204,6 +217,6 @@ export const ProductPage: FC = () => {
           </Table>
         </TableContainer>
       </div>
-    </>
+    </div>
   );
 };

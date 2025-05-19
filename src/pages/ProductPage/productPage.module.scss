@@ -156,7 +156,7 @@
   margin: 0;
   padding: 0;
   border: 0;
-  color: #e62229;
+  color: #454545;
   line-height: 1.35;
   cursor: pointer;
   display: inline-block;
@@ -188,4 +188,9 @@
     color: #777;
     margin-top: 4px;
   }
+}
+
+.selected {
+  font-weight: 600;
+  font-family: "Segoe UI Semibold", Arial, sans-serif;
 }

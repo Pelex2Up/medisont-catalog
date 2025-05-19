@@ -145,14 +145,16 @@ export const CatalogPage: FC = () => {
   }, [searchParams, categoriesData]);
 
   useEffect(() => {
-    if (catalogData && !priceRange) {
+    if (
+      catalogData &&
+      (priceRange?.min !== catalogData.price_min_value ||
+        priceRange.max !== catalogData.price_max_value)
+    ) {
       setPriceRange({
         min: catalogData.price_min_value,
         max: catalogData.price_max_value,
       });
     }
-    // if (priceValue[0] === 0 && priceValue[1] === 100000 && catalogData)
-    //   setPriceValue([catalogData.price_min_value, catalogData.price_max_value]);
   }, [catalogData, priceRange]);
 
   const handleCategoryClick = (category: IParent | CategoryT | null) => {
@@ -165,6 +167,12 @@ export const CatalogPage: FC = () => {
       onPageChange(1);
       searchParams.delete("category");
       setCatalogData(undefined);
+      setSearchParams((prev) => {
+        const newParams = new URLSearchParams(prev);
+        newParams.delete("min_price");
+        newParams.delete("max_price");
+        return newParams;
+      });
     }
   };
 
@@ -186,6 +194,33 @@ export const CatalogPage: FC = () => {
       updateUrl(searchParams);
     }
   };
+
+  useEffect(() => {
+    if (priceRange && selectedCategory) {
+      setPriceValue((prevPriceValue) => {
+        const newMin = Math.max(priceRange.min, prevPriceValue[0]);
+        const newMax = Math.min(priceRange.max, prevPriceValue[1]);
+
+        // Проверяем, изменения произошли
+        if (newMin !== prevPriceValue[0] || newMax !== prevPriceValue[1]) {
+          return [newMin, newMax];
+        }
+
+        return prevPriceValue; // Возвращаем старое значение, если изменений не произошло
+      });
+    }
+  }, [priceRange]);
+
+  useEffect(() => {
+    if (priceValue[0] !== 0 && priceValue[1] !== 100000 && selectedCategory) {
+      setSearchParams((prev) => {
+        const newParams = new URLSearchParams(prev);
+        newParams.set("min_price", String(priceValue[0]));
+        newParams.set("max_price", String(priceValue[1]));
+        return newParams;
+      });
+    }
+  }, [priceValue, setSearchParams]);
 
   return (
     <div style={{ position: "relative", marginBottom: "4rem" }}>
@@ -224,8 +259,8 @@ export const CatalogPage: FC = () => {
                 value={priceValue}
                 onChange={handleChange}
                 valueLabelDisplay="auto"
-                min={priceRange?.min}
-                max={priceRange?.max}
+                min={priceRange.min}
+                max={priceRange.max}
                 color="primary"
                 sx={{ width: "300px", marginLeft: "10px" }}
               />
@@ -234,7 +269,8 @@ export const CatalogPage: FC = () => {
                   type="text"
                   className={styles.wrapper_filters_priceSlider_range_input}
                   value={
-                    priceRange.min > priceValue[0]
+                    priceRange.min >= priceValue[0] ||
+                    priceRange.max <= priceValue[0]
                       ? priceRange.min
                       : priceValue[0]
                   }
@@ -247,7 +283,8 @@ export const CatalogPage: FC = () => {
                   type="text"
                   className={styles.wrapper_filters_priceSlider_range_input}
                   value={
-                    priceValue[1] < priceRange.max
+                    priceValue[1] <= priceRange.max &&
+                    priceValue[1] >= priceRange.min
                       ? priceValue[1]
                       : priceRange.max
                   }
