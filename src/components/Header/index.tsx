@@ -135,7 +135,7 @@ export const Header: FC = () => {
         <a
           href="tel:+375173000093"
           style={{
-            fontSize: "34px",
+            fontSize: "32px",
             width: "100%",
             textAlign: "justify",
             lineHeight: "36px",
@@ -149,10 +149,9 @@ export const Header: FC = () => {
         </a>
         <span
           style={{
-            fontSize: "15px",
+            fontSize: "14px",
             width: "100%",
             textAlign: "justify",
-            letterSpacing: "0px",
             textDecoration: "none",
             color: "#000000",
           }}
@@ -165,7 +164,6 @@ export const Header: FC = () => {
             fontSize: "14px",
             width: "100%",
             textAlign: "justify",
-            letterSpacing: "0.4px",
             color: "#000000",
             textDecoration: "none",
           }}
@@ -182,7 +180,6 @@ export const Header: FC = () => {
             fontSize: "14px",
             width: "100%",
             textAlign: "justify",
-            letterSpacing: "0.4px",
             color: "#000000",
             textDecoration: "none",
           }}
