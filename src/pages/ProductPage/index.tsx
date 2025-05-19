@@ -46,6 +46,9 @@ export const ProductPage: FC = () => {
       id: parent.id,
       external_id: parent.external_id,
       name: parent.name,
+      image: parent.image,
+      product_count: parent.product_count,
+      params: parent.params,
       childs: categories.filter(
         (child) => child.parent === parent.id && !child.main_tree
       ),
@@ -173,7 +176,7 @@ export const ProductPage: FC = () => {
                     Технические характеристики:{" "}
                   </span>
                 </TableCell>
-                <TableCell/>
+                <TableCell />
               </TableRow>
             </TableHead>
             <TableBody>
