@@ -6,6 +6,7 @@ export default defineConfig({
   server: {
     allowedHosts: [
       "localhost", // можно добавить localhost для локальной разработки
+      "dev.mobydick.by",
     ],
     proxy: {
       "/api": {
