@@ -1,0 +1,87 @@
+.cartItem {
+  width: 400px;
+  border-radius: 10px;
+  background-color: #e1e1e1;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  &_img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    cursor: pointer;
+  }
+
+  &_text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+
+    &_name {
+      -webkit-font-smoothing: antialiased;
+      text-align: start;
+      box-sizing: content-box;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-weight: 600;
+      line-height: 1.35;
+      color: #000000;
+      font-size: 16px;
+      max-width: 250px;
+      text-wrap: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    &_price {
+      -webkit-font-smoothing: antialiased;
+      text-align: start;
+      box-sizing: content-box;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-family: "Segoe UI Bold", Arial, sans-serif;
+      font-weight: 600;
+      line-height: 1.35;
+      color: #7a2525;
+      font-size: 16px;
+    }
+  }
+
+  &_count {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-left: auto;
+
+    &_button {
+      cursor: pointer;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: none;
+      padding: 0;
+      margin: 0;
+      background-color: #efefef;
+    }
+
+    &_counter {
+      -webkit-font-smoothing: antialiased;
+      text-align: center;
+      box-sizing: content-box;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-family: "Segoe UI Bold", Arial, sans-serif;
+      font-weight: 600;
+      line-height: 1.35;
+      color: #000000;
+      font-size: 16px;
+    }
+  }
+}

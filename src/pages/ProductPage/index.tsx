@@ -24,9 +24,11 @@ import { PathE } from "../../enum/pathE";
 import { CategoryItem } from "../../components/categoryItem";
 import { IParent } from "../CatalogPage";
 import { CategoryT } from "../../api/apiTypes";
+import { useCart } from "react-use-cart";
 
 export const ProductPage: FC = () => {
   const isMobile = useMediaQuery("(max-width:1200px)");
+  const { addItem } = useCart();
   const { article } = useParams();
   const navigate = useNavigate();
   const [groupId, setGroupId] = useState<string>();
@@ -121,8 +123,6 @@ export const ProductPage: FC = () => {
     return <Loader />;
   }
 
-  console.log(isMobile)
-
   return (
     <div>
       <button
@@ -173,6 +173,21 @@ export const ProductPage: FC = () => {
           <span
             className={styles.wrapper_rightSide_price}
           >{`${itemsData[selectedIndex].price} ${itemsData[selectedIndex].currency}`}</span>
+          <button
+            className={styles.addCart}
+            onClick={() =>
+              addItem(
+                {
+                  ...itemsData[selectedIndex],
+                  id: String(itemsData[selectedIndex].id),
+                  price: Number(itemsData[selectedIndex].price),
+                },
+                1
+              )
+            }
+          >
+            Добавить в корзину
+          </button>
           {itemsData[selectedIndex].description && (
             <div className={styles.wrapper_rightSide_text}>
               {parse(itemsData[selectedIndex].description)}

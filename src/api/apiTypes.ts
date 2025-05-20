@@ -44,3 +44,10 @@ export type CategoryT = {
     values: string[];
   }[];
 };
+
+export interface IPriceInfo {
+  price: {
+    price_min_value: number;
+    price_max_value: number;
+  };
+}

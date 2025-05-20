@@ -7,6 +7,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import { Provider } from "react-redux";
 import { store } from "./store/redux/store.ts";
+import { CartProvider } from "react-use-cart";
 
 const persistor = persistStore(store);
 
@@ -15,7 +16,9 @@ createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
       <PersistGate loading={<p>Loading...</p>} persistor={persistor}>
         <AnimatePresence>
-          <App />
+          <CartProvider>
+            <App />
+          </CartProvider>
         </AnimatePresence>
       </PersistGate>
     </Provider>

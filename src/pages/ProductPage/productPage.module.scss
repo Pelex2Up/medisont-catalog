@@ -209,3 +209,34 @@
   font-weight: 600;
   font-family: "Segoe UI Semibold", Arial, sans-serif;
 }
+
+.addCart {
+  text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI Semibold", Arial, sans-serif;
+  border: 0 none;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: 700;
+  background-image: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  user-select: none;
+  box-sizing: border-box;
+  white-space: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  font-size: 14px;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin-left: 5px;
+  outline: none;
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #000000;
+  -webkit-border-radius: 20px;
+}

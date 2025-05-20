@@ -1,6 +1,11 @@
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { baseQuery } from "./baseApi";
-import { CatalogResponseT, CategoryT, ProductDataT } from "./apiTypes";
+import {
+  CatalogResponseT,
+  CategoryT,
+  IPriceInfo,
+  ProductDataT,
+} from "./apiTypes";
 
 export const catalogService = createApi({
   reducerPath: "catalogService",
@@ -15,6 +20,9 @@ export const catalogService = createApi({
     getGroupData: build.query<ProductDataT[], string>({
       query: (code) => `/grouped-products/by-group/?group_code=${code}`,
     }),
+    getPriceRange: build.query<IPriceInfo, void>({
+      query: () => "/inform/",
+    }),
   }),
 });
 
@@ -22,4 +30,5 @@ export const {
   useGetCatalogDataMutation,
   useGetCategoriesQuery,
   useLazyGetGroupDataQuery,
+  useGetPriceRangeQuery,
 } = catalogService;

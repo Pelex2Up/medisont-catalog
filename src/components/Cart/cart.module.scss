@@ -1,0 +1,21 @@
+.cartWrapper {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  border-radius: 70px;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 40px;
+  border: 0;
+  text-decoration: none;
+  background-color: rgba(127, 127, 127, 0.165);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(30px);
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 14px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  text-transform: uppercase;
+}

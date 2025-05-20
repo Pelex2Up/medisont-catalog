@@ -1,9 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC, useCallback, useEffect, useState } from "react";
 import {
   useGetCatalogDataMutation,
   useGetCategoriesQuery,
+  useGetPriceRangeQuery,
 } from "../../api/catalogService";
 import styles from "./catalogPage.module.scss";
 import { CatalogItem } from "../../components/catalogItem";
@@ -33,9 +35,10 @@ export interface IParent {
 
 export const CatalogPage: FC = () => {
   const location = useLocation();
+  const { data: priceData } = useGetPriceRangeQuery();
   const [searchParams, setSearchParams] = useSearchParams(location.search);
   const [currentPage, setPage] = useState<number>(1);
-  const [priceValue, setPriceValue] = useState<number[]>([0, 100000]);
+  const [priceValue, setPriceValue] = useState<number[]>();
   const [selectedCategory, setSelectedCategory] = useState<
     CategoryT | IParent
   >();
@@ -145,17 +148,17 @@ export const CatalogPage: FC = () => {
   }, [searchParams, categoriesData]);
 
   useEffect(() => {
-    if (
-      catalogData &&
-      (priceRange?.min !== catalogData.price_min_value ||
-        priceRange.max !== catalogData.price_max_value)
-    ) {
+    if (priceData) {
       setPriceRange({
-        min: catalogData.price_min_value,
-        max: catalogData.price_max_value,
+        min: priceData.price.price_min_value,
+        max: priceData.price.price_max_value,
       });
+      setPriceValue([
+        priceData.price.price_min_value,
+        priceData.price.price_max_value,
+      ]);
     }
-  }, [catalogData, priceRange]);
+  }, [priceData]);
 
   const handleCategoryClick = (category: IParent | CategoryT | null) => {
     if (category) {
@@ -203,21 +206,22 @@ export const CatalogPage: FC = () => {
   useEffect(() => {
     if (priceRange && selectedCategory) {
       setPriceValue((prevPriceValue) => {
-        const newMin = Math.max(priceRange.min, prevPriceValue[0]);
-        const newMax = Math.min(priceRange.max, prevPriceValue[1]);
+        if (prevPriceValue) {
+          const newMin = Math.max(priceRange.min, prevPriceValue[0]);
+          const newMax = Math.min(priceRange.max, prevPriceValue[1]);
 
-        // Проверяем, изменения произошли
-        if (newMin !== prevPriceValue[0] || newMax !== prevPriceValue[1]) {
-          return [newMin, newMax];
+          // Проверяем, изменения произошли
+          if (newMin !== prevPriceValue[0] || newMax !== prevPriceValue[1]) {
+            return [newMin, newMax];
+          }
         }
-
         return prevPriceValue; // Возвращаем старое значение, если изменений не произошло
       });
     }
   }, [priceRange]);
 
   useEffect(() => {
-    if (priceValue[0] !== 0 && priceValue[1] !== 100000 && selectedCategory) {
+    if (priceValue && priceValue[0] && priceValue[1] && selectedCategory) {
       setSearchParams((prev) => {
         const newParams = new URLSearchParams(prev);
         newParams.set("price_min", String(priceValue[0]));
@@ -254,7 +258,7 @@ export const CatalogPage: FC = () => {
                 ) : null
               )}
           </div>
-          {priceRange && (
+          {priceRange && priceValue && (
             <div className={styles.wrapper_filters_priceSlider}>
               <span className={styles.wrapper_filters_priceSlider_title}>
                 Цена (BYN)
@@ -273,12 +277,7 @@ export const CatalogPage: FC = () => {
                 <input
                   type="text"
                   className={styles.wrapper_filters_priceSlider_range_input}
-                  value={
-                    priceRange.min >= priceValue[0] ||
-                    priceRange.max <= priceValue[0]
-                      ? priceRange.min
-                      : priceValue[0]
-                  }
+                  value={priceValue[0]}
                   onChange={(event) =>
                     setPriceValue([Number(event.target.value), priceValue[1]])
                   }
@@ -287,12 +286,7 @@ export const CatalogPage: FC = () => {
                 <input
                   type="text"
                   className={styles.wrapper_filters_priceSlider_range_input}
-                  value={
-                    priceValue[1] <= priceRange.max &&
-                    priceValue[1] >= priceRange.min
-                      ? priceValue[1]
-                      : priceRange.max
-                  }
+                  value={priceValue[1]}
                   onChange={(event) =>
                     setPriceValue([priceValue[0], Number(event.target.value)])
                   }
