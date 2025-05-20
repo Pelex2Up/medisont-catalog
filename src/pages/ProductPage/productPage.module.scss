@@ -6,6 +6,10 @@
   margin: 0 auto;
   gap: 32px;
 
+  @media screen and (max-width: 1300px) {
+    grid-template-columns: 1fr;
+  }
+
   &_filters {
     display: flex;
     flex-direction: column;
@@ -24,6 +28,11 @@
   &_leftSide {
     width: 560px;
     height: 624px;
+
+    @media screen and (max-width: 1200px) {
+      width: calc(100vw - 2rem);
+      height: auto;
+    }
   }
 
   &_rightSide {
@@ -176,6 +185,11 @@
   padding: 2rem 20px;
   margin: 0 auto;
 
+  @media screen and (max-width: 1200px) {
+    max-width: calc(100vw - 40px);
+    padding: 0 20px 2rem;
+  }
+
   &_title {
     -webkit-font-smoothing: antialiased;
     cursor: default;
@@ -191,6 +205,7 @@
 }
 
 .selected {
+  color: #e62229;
   font-weight: 600;
   font-family: "Segoe UI Semibold", Arial, sans-serif;
 }

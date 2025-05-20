@@ -16,6 +16,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  useMediaQuery,
 } from "@mui/material";
 import WestIcon from "@mui/icons-material/West";
 import parse from "html-react-parser";
@@ -25,6 +26,7 @@ import { IParent } from "../CatalogPage";
 import { CategoryT } from "../../api/apiTypes";
 
 export const ProductPage: FC = () => {
+  const isMobile = useMediaQuery("(max-width:1200px)");
   const { article } = useParams();
   const navigate = useNavigate();
   const [groupId, setGroupId] = useState<string>();
@@ -119,6 +121,8 @@ export const ProductPage: FC = () => {
     return <Loader />;
   }
 
+  console.log(isMobile)
+
   return (
     <div>
       <button
@@ -179,7 +183,11 @@ export const ProductPage: FC = () => {
       <div className={styles.tech}>
         <TableContainer
           component={Paper}
-          sx={{ marginLeft: "332px", width: "calc(100% - 332px)" }}
+          sx={
+            isMobile
+              ? { width: "100%" }
+              : { marginLeft: "332px", width: "calc(100% - 332px)" }
+          }
         >
           <Table aria-label="params">
             <TableHead>

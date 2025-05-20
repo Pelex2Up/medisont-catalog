@@ -4,10 +4,19 @@
   background-color: #111111;
   padding: 75px 0;
 
+  @media screen and (max-width: 1300px) {
+    padding: 75px 1rem;
+    max-width: calc(100vw - 2rem);
+  }
+
   &_upperBlock {
     max-width: 1200px;
     display: flex;
     margin: 0 auto;
+
+    @media screen and (max-width: 1300px) {
+      flex-wrap: wrap;
+    }
 
     &_logoBlock {
       display: flex;

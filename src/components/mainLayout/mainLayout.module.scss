@@ -5,6 +5,10 @@
   position: relative;
   padding: 130px 0 0;
 
+  @media screen and (max-width: 1300px) {
+    padding: 100px 0 0;
+  }
+
   &_body {
     width: 100%;
     max-width: 100vw;

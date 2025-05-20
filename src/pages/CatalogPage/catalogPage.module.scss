@@ -5,11 +5,20 @@
   max-width: 1450px;
   margin: 0 auto;
 
+  @media screen and (max-width: 1200px) {
+    flex-direction: column;
+    padding: 1rem;
+
+    &_filters {
+      width: 100%;
+    }
+  }
+
   &_filters {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    width: 400px;
+    width: 350px;
 
     &_available {
       margin-top: 1rem;
@@ -139,6 +148,7 @@
 }
 
 .selected {
+  color: #e62229;
   font-weight: 600;
   font-family: "Segoe UI Semibold", Arial, sans-serif;
 }

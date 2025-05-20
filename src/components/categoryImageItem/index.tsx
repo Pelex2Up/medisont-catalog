@@ -14,7 +14,10 @@ export const CategoryImageItem: FC<ICategoryImageItem> = ({
   onChange,
 }) => {
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={styles.wrapper}
+      onClick={() => onChange(category)}
+    >
       <div className={styles.wrapper_image}>
         <img
           className={styles.wrapper_image_bg}
@@ -26,9 +29,7 @@ export const CategoryImageItem: FC<ICategoryImageItem> = ({
           alt={category.name}
         />
       </div>
-      <span onClick={() => onChange(category)} className={styles.wrapper_name}>
-        {category.name}
-      </span>
+      <span className={styles.wrapper_name}>{category.name}</span>
     </div>
   );
 };

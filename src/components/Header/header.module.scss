@@ -14,6 +14,67 @@
   -webkit-font-smoothing: antialiased;
   background-color: #ffffff;
 
+  @media screen and (max-width: 1300px) {
+    background-color: #111;
+    gap: 0;
+    padding: 0;
+    height: 100px;
+    max-width: 100vw;
+
+    &_mobileHeader {
+      display: flex !important;
+      padding: 0 1rem;
+    }
+
+    &_navBlock {
+      display: none !important;
+    }
+
+    &_phone {
+      display: none !important;
+    }
+
+    &_logo {
+      display: none !important;
+    }
+  }
+
+  &_mobileHeader {
+    display: none;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+
+    &_text {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      color: #ffffff;
+
+      &_top {
+        font-family: 'Segoe UI Regular', sans-serif;
+        font-size: 30px;
+        font-weight: 100;
+        margin: 0;
+        line-height: 30px;
+        text-align: left;
+      }
+
+      &_bottom {
+        font-family: 'Segoe UI Regular', sans-serif;
+        font-weight: 100;
+        font-size: 16px;
+        margin: 0;
+        line-height: 16px;
+        text-align: left;
+      }
+    }
+
+    &_button {
+    }
+  }
+
   &_logo {
     height: 80px;
     width: 221px;
@@ -157,6 +218,10 @@
   background-color: #ff0000;
   -webkit-border-radius: 20px;
   text-decoration: none;
+
+  @media screen and (max-width: 1300px) {
+    display: none;
+  }
 
   &:hover {
     background-color: #000000;

@@ -50,3 +50,27 @@ export const logoArray: {
     image6: silichi,
   },
 ];
+
+export const logoArrayMobile: {
+  image1: string;
+  image2: string;
+}[] = [
+  {
+    image1: amkodor,
+    image2: vtbbank,
+  },
+  { image1: bapbank, image2: belarusbank },
+  { image1: belfarma, image2: belkommunmash },
+  {
+    image1: darida,
+    image2: erip,
+  },
+  { image1: eurotips, image2: megatop },
+  { image1: metro, image2: milavitsa },
+  {
+    image1: minksenergo,
+    image2: minsporta,
+  },
+  { image1: mintruda, image2: oriflame },
+  { image1: serge, image2: silichi },
+];

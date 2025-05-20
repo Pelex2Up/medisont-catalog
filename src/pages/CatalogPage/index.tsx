@@ -161,7 +161,12 @@ export const CatalogPage: FC = () => {
     if (category) {
       onPageChange(1);
       setSelectedCategory(category);
-      updateUrl({ category: category.id, page: 1 });
+      updateUrl({
+        category: category.id,
+        page: 1,
+        min_price: "",
+        max_price: "",
+      });
     } else {
       setSelectedCategory(undefined);
       onPageChange(1);

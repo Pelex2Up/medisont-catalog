@@ -2,6 +2,7 @@ import { FC } from "react";
 import styles from "./header.module.scss";
 import logo from "./assets/image.png";
 import { about, printing, realise } from "./config";
+import Hamburger from "hamburger-react";
 
 export const Header: FC = () => {
   return (
@@ -125,13 +126,14 @@ export const Header: FC = () => {
         </a>
       </nav>
       <div
+        className={styles["wrapper_phone"]}
         style={{
           lineHeight: "18px",
           minWidth: "156px",
           display: "flex",
           flexDirection: "column",
           gap: "1px",
-          marginTop: '-10px'
+          marginTop: "-10px",
         }}
       >
         <a
@@ -199,6 +201,19 @@ export const Header: FC = () => {
       >
         PDF-каталог
       </a>
+      <div className={styles["wrapper_mobileHeader"]}>
+        <div className={styles["wrapper_mobileHeader_text"]}>
+          <span className={styles["wrapper_mobileHeader_text_top"]}>
+            Медисонт
+          </span>
+          <p className={styles["wrapper_mobileHeader_text_bottom"]}>
+            Типография | Издательство
+          </p>
+        </div>
+        <div>
+          <Hamburger color="#ffffff" />
+        </div>
+      </div>
     </section>
   );
 };
