@@ -214,6 +214,7 @@ export const Header: FC = () => {
           <Hamburger color="#ffffff" />
         </div>
       </div>
+      <div className={styles.wrapper_mobileMenu}></div>
     </section>
   );
 };

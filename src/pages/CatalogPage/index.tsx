@@ -85,8 +85,8 @@ export const CatalogPage: FC = () => {
     onPageChange(1);
     setPriceValue(newValue);
     updateUrl({
-      min_price: newValue[0],
-      max_price: newValue[1],
+      price_min: newValue[0],
+      price_max: newValue[1],
       page: 1,
     });
   };
@@ -164,8 +164,8 @@ export const CatalogPage: FC = () => {
       updateUrl({
         category: category.id,
         page: 1,
-        min_price: "",
-        max_price: "",
+        price_min: "",
+        price_max: "",
       });
     } else {
       setSelectedCategory(undefined);
@@ -174,8 +174,8 @@ export const CatalogPage: FC = () => {
       setCatalogData(undefined);
       setSearchParams((prev) => {
         const newParams = new URLSearchParams(prev);
-        newParams.delete("min_price");
-        newParams.delete("max_price");
+        newParams.delete("price_min");
+        newParams.delete("price_max");
         return newParams;
       });
     }
@@ -220,8 +220,8 @@ export const CatalogPage: FC = () => {
     if (priceValue[0] !== 0 && priceValue[1] !== 100000 && selectedCategory) {
       setSearchParams((prev) => {
         const newParams = new URLSearchParams(prev);
-        newParams.set("min_price", String(priceValue[0]));
-        newParams.set("max_price", String(priceValue[1]));
+        newParams.set("price_min", String(priceValue[0]));
+        newParams.set("price_max", String(priceValue[1]));
         return newParams;
       });
     }
