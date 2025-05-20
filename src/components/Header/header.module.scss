@@ -39,6 +39,59 @@
     }
   }
 
+  &_mobileMenu {
+    position: fixed;
+    top: 100px;
+    left: 0;
+    right: 0;
+    height: auto;
+    min-height: 300px;
+    z-index: 99999;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    // justify-content: center;
+    align-items: center;
+    padding: 40px 0;
+    overflow-y: auto;
+
+    &_logo {
+      width: 130px;
+      height: 60px;
+      object-fit: contain;
+    }
+
+    &_links {
+      margin: 50px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+
+      &_navElement {
+        font-family: "Segoe UI Bold", sans-serif;
+        text-size-adjust: 100%;
+        -webkit-font-smoothing: antialiased;
+        list-style-type: none;
+        font-size: 16px;
+        text-align: center;
+        white-space: normal;
+        box-sizing: content-box;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        display: inline-block;
+        outline: none;
+        transition: color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        text-decoration: none;
+        color: #000000;
+        font-weight: 700;
+      }
+    }
+  }
+
   &_mobileHeader {
     display: none;
     width: 100%;
@@ -53,7 +106,7 @@
       color: #ffffff;
 
       &_top {
-        font-family: 'Segoe UI Regular', sans-serif;
+        font-family: "Segoe UI Regular", sans-serif;
         font-size: 30px;
         font-weight: 100;
         margin: 0;
@@ -62,7 +115,7 @@
       }
 
       &_bottom {
-        font-family: 'Segoe UI Regular', sans-serif;
+        font-family: "Segoe UI Regular", sans-serif;
         font-weight: 100;
         font-size: 16px;
         margin: 0;
@@ -273,4 +326,35 @@
 
 .wrapper_navBlock_navElement_dropDownMenu_content::-webkit-scrollbar {
   display: none;
+}
+
+.phoneButton {
+  text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI Semibold", Arial, sans-serif;
+  border: 0 none;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: 700;
+  background-image: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  user-select: none;
+  box-sizing: border-box;
+  white-space: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  font-size: 14px;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin-left: 5px;
+  outline: none;
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #000000;
+  -webkit-border-radius: 20px;
 }
