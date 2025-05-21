@@ -173,10 +173,11 @@ export const CatalogPage: FC = () => {
     } else {
       setSelectedCategory(undefined);
       onPageChange(1);
-      searchParams.delete("category");
       setCatalogData(undefined);
       setSearchParams((prev) => {
         const newParams = new URLSearchParams(prev);
+        newParams.set("page", "1");
+        newParams.delete("category");
         newParams.delete("price_min");
         newParams.delete("price_max");
         return newParams;
@@ -230,6 +231,8 @@ export const CatalogPage: FC = () => {
       });
     }
   }, [priceValue, setSearchParams]);
+
+  console.log(catalogData)
 
   return (
     <div style={{ position: "relative", marginBottom: "4rem" }}>

@@ -35,6 +35,15 @@ export const Cart: FC = () => {
           sx={{ zIndex: 99999999999 }}
         >
           <Box sx={style}>
+            <div style={{ width: "100%", textAlign: "right" }}>
+              <button
+                className={styles.btnClose}
+                onClick={() => setOpen(false)}
+                title="Закрыть"
+              >
+                &#x2715;
+              </button>
+            </div>
             {/* <img src={phoneImg} alt={phoneImg} style={{ width: "100%" }} /> */}
             <Typography
               id="modal-modal-title"
@@ -48,14 +57,20 @@ export const Cart: FC = () => {
                 padding: "1rem 1rem 0",
                 lineHeight: "26px",
                 fontFamily: "'Segoe UI Semibold', sans-serif",
+                minWidth: '250px'
               }}
             >
-              Корзина товаров
+              {items.length > 0
+                ? "Корзина товаров"
+                : "В корзине пока пусто... Добавьте товары в корзину"}
             </Typography>
             <br />
             {items.map((item, index) => (
               <CartItem item={item} key={index} />
             ))}
+            {items.length > 0 && (
+              <button className={styles.btnOrder}>Заказать</button>
+            )}
           </Box>
         </Modal>
       )}
