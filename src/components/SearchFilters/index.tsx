@@ -5,7 +5,13 @@ import styles from "./searchFilters.module.scss";
 import { CategoryT } from "../../api/apiTypes";
 import { IParent } from "../../pages/CatalogPage";
 import TuneIcon from "@mui/icons-material/Tune";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  useMediaQuery,
+} from "@mui/material";
 
 interface ISearchFilters {
   category: CategoryT | IParent;
@@ -31,6 +37,7 @@ const MenuProps = {
 export const SearchFilters: FC<ISearchFilters> = ({ category, updateUrl }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [filters, setFilters] = useState<{ name: string; value: string }[]>();
+  const isMobile = useMediaQuery("(max-width:1200px)");
 
   useEffect(() => {
     if (category) {
@@ -62,7 +69,8 @@ export const SearchFilters: FC<ISearchFilters> = ({ category, updateUrl }) => {
           className={styles.searchFilters_btn}
           onClick={() => setOpen(!open)}
         >
-          {open ? `Фильтры к разделу ${category.name}` : "Доступны фильтры"}
+          {!isMobile ?
+            (open ? `Фильтры к разделу ${category.name}` : "Доступны фильтры"):'Фильтры'}
           <TuneIcon />
         </div>
         {open && (

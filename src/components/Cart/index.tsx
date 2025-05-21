@@ -1,8 +1,9 @@
 import { FC, useState } from "react";
 import styles from "./cart.module.scss";
 import { useCart } from "react-use-cart";
-import { Box, Modal, Typography } from "@mui/material";
+import { Box, Modal, Typography, useMediaQuery } from "@mui/material";
 import { CartItem } from "./CartItem";
+import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 
 const style = {
   position: "absolute",
@@ -20,11 +21,16 @@ const style = {
 export const Cart: FC = () => {
   const { items } = useCart();
   const [open, setOpen] = useState<boolean>(false);
+  const isMobile = useMediaQuery("(max-width:1200px)");
 
   return (
     <>
       <button className={styles.cartWrapper} onClick={() => setOpen(true)}>
-        Товаров в корзине: {items.length}
+        {isMobile ? (
+          <ShoppingCartCheckoutIcon />
+        ) : (
+          `Товаров в корзине: ${items.length}`
+        )}
       </button>
       {open && (
         <Modal
@@ -57,7 +63,7 @@ export const Cart: FC = () => {
                 padding: "1rem 1rem 0",
                 lineHeight: "26px",
                 fontFamily: "'Segoe UI Semibold', sans-serif",
-                minWidth: '250px'
+                minWidth: "250px",
               }}
             >
               {items.length > 0
