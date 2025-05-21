@@ -19,6 +19,7 @@ import { Checkbox } from "@mui/material";
 import { useLocation, useSearchParams } from "react-router";
 import { debounce } from "lodash";
 import { CategoryImageItem } from "../../components/categoryImageItem";
+import { SearchFilters } from "../../components/SearchFilters";
 
 export interface IParent {
   id: number;
@@ -232,10 +233,11 @@ export const CatalogPage: FC = () => {
     }
   }, [priceValue, setSearchParams]);
 
-  console.log(catalogData)
-
   return (
     <div style={{ position: "relative", marginBottom: "4rem" }}>
+      {selectedCategory && (
+        <SearchFilters category={selectedCategory} updateUrl={updateUrl} />
+      )}
       <div className={styles.wrapper}>
         <div className={styles.wrapper_filters}>
           <div className={styles.wrapper_filters_categories}>

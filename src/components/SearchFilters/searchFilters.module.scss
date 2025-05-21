@@ -1,0 +1,35 @@
+.searchFilters {
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  border-radius: 70px;
+  z-index: 10;
+  padding: 20px 40px;
+  text-decoration: none;
+  background-color: rgba(127, 127, 127, 0.165);
+  border: 1px solid #ffffff1a;
+  backdrop-filter: blur(30px);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 25px;
+  width: auto;
+  transition: all linear 0.3s;
+
+  &_btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(0, 0, 0, 0.8);
+    gap: 20px;
+    font-size: 14px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+}
+
+.open {
+  height: 300px;
+  border-radius: 16px;
+}
