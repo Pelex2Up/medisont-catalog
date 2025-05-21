@@ -34,7 +34,7 @@ const MenuProps = {
   },
 };
 
-export const SearchFilters: FC<ISearchFilters> = ({ category, updateUrl }) => {
+export const SearchFilters: FC<ISearchFilters> = ({ category }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [filters, setFilters] = useState<{ name: string; value: string }[]>();
   const isMobile = useMediaQuery("(max-width:1200px)");
@@ -69,8 +69,11 @@ export const SearchFilters: FC<ISearchFilters> = ({ category, updateUrl }) => {
           className={styles.searchFilters_btn}
           onClick={() => setOpen(!open)}
         >
-          {!isMobile ?
-            (open ? `Фильтры к разделу ${category.name}` : "Доступны фильтры"):'Фильтры'}
+          {!isMobile
+            ? open
+              ? `Фильтры к разделу ${category.name}`
+              : "Доступны фильтры"
+            : "Фильтры"}
           <TuneIcon />
         </div>
         {open && (
