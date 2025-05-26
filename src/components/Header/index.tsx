@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import styles from "./header.module.scss";
 import logo from "./assets/image.png";
 import { about, printing, realise } from "./config";
-import Hamburger from "hamburger-react";
+import { Squash } from "hamburger-react";
 import { Box, Modal, Typography, useMediaQuery } from "@mui/material";
 import phoneImg from "./assets/modal.png";
 import miniLogo from "./assets/mini logo.png";
@@ -278,7 +278,13 @@ export const Header: FC<IHeader> = ({ smallHeader }) => {
           </p>
         </div>
         <div>
-          <Hamburger color="#ffffff" onToggle={setOpen} />
+          <Squash
+            color="#ffffff"
+            size={25}
+            rounded
+            onToggle={setOpen}
+            duration={0.5}
+          />
         </div>
       </div>
       {open && (
