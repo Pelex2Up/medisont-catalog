@@ -92,7 +92,11 @@ export const ProductPage: FC = () => {
       const description = itemsData.find((item) => item.description.length > 0);
 
       if (description) {
-        setItemDescription(description.description);
+        const cleanedText = description.description.replace(
+          /<table[\s\S]*?<\/table>/gi,
+          ""
+        );
+        setItemDescription(cleanedText);
       }
       if (index) {
         setSelectedIndex(index);
