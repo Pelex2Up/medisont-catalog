@@ -1,5 +1,5 @@
 .wrapper {
-  position: fixed;
+  position: absolute;
   left: 0;
   top: 0;
   right: 0;
@@ -324,6 +324,14 @@
   }
 }
 
+.header {
+  position: fixed;
+}
+
+.smallArrow {
+  color: #ffffff;
+}
+
 .wrapper_navBlock_navElement_dropDownMenu_content::-webkit-scrollbar {
   display: none;
 }
@@ -357,4 +365,22 @@
   color: #ffffff;
   background-color: #000000;
   -webkit-border-radius: 20px;
+}
+
+.miniHeader {
+  background-color: #111;
+  position: fixed;
+  height: 50px;
+
+  &_logo {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+  }
+
+  &_link {
+    font-size: 14px;
+    color: #ffffff;
+    height: 50px;
+  }
 }
