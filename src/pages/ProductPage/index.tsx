@@ -98,7 +98,7 @@ export const ProductPage: FC = () => {
         setSelectedIndex(index);
       }
       const images: ReactImageGalleryItem[] = itemsData.map((item) => {
-        return { original: item.picture, thumbnail: item.img };
+        return { original: item.img, thumbnail: item.img };
       });
 
       if (images) {
