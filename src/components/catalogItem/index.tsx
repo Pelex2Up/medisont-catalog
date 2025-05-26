@@ -25,6 +25,15 @@ export const CatalogItem: FC<ICatalogItem> = ({ product }) => {
               : blankImage
           }
           alt={product.products[selectedItem].name}
+          onClick={() =>
+            navigate(
+              generatePath(PathE.DETAILS, {
+                article: `${product.group_code.replace("/", "&")}=${
+                  product.products[selectedItem].id
+                }`,
+              })
+            )
+          }
         />
         <div className={styles.productWrapper_image_colors}>
           {product.products.map((color, index) => (

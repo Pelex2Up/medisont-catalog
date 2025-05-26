@@ -41,6 +41,7 @@ export const ProductPage: FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<
     IParent | CategoryT
   >();
+  const [itemDescription, setItemDescription] = useState<string>("");
 
   const [slides, setSlides] = useState<ReactImageGalleryItem[]>();
 
@@ -88,6 +89,11 @@ export const ProductPage: FC = () => {
   useEffect(() => {
     if (itemsData && itemId) {
       const index = itemsData.findIndex((item) => String(item.id) === itemId);
+      const description = itemsData.find((item) => item.description.length > 0);
+
+      if (description) {
+        setItemDescription(description.description);
+      }
       if (index) {
         setSelectedIndex(index);
       }
@@ -188,11 +194,12 @@ export const ProductPage: FC = () => {
           >
             Добавить в корзину
           </button>
-          {itemsData[selectedIndex].description && (
-            <div className={styles.wrapper_rightSide_text}>
-              {parse(itemsData[selectedIndex].description)}
-            </div>
-          )}
+          {/* {itemsData[selectedIndex].description && ( */}
+          <div className={styles.wrapper_rightSide_text}>
+            {/* {parse(itemsData[selectedIndex].description)} */}
+            {parse(itemDescription)}
+          </div>
+          {/* )} */}
         </div>
       </div>
       <div className={styles.tech}>
