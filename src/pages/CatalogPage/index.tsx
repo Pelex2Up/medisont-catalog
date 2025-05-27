@@ -57,15 +57,14 @@ export const CatalogPage: FC = () => {
   });
   const [groupedCategories, setGroupedCategories] = useState<IParent[]>([]);
   const [priceRange, setPriceRange] = useState<{ min: number; max: number }>();
+  const permittedParams = ["page", "price_min", "price_max", "category"];
 
-  const updateUrl = async (newParams: any) => {
+  const updateUrl = (newParams: any) => {
     const currentParams = Object.fromEntries(searchParams);
     const updatedParams = { ...currentParams, ...newParams };
-    await setSearchParams(updatedParams);
     const filteredParams = filterObjectByValues(updatedParams);
-    const newUrl = new URLSearchParams(filteredParams);
-    await setSearchParams(filteredParams);
-    await debouncedUpdateData(`?${newUrl.toString()}`);
+    setSearchParams(filteredParams);
+    debouncedUpdateData(`?${new URLSearchParams(filteredParams).toString()}`);
   };
 
   const debouncedUpdateData = useCallback(
@@ -165,18 +164,28 @@ export const CatalogPage: FC = () => {
     if (category) {
       onPageChange(1);
       setSelectedCategory(category);
-      updateUrl({
-        category: category.id,
-        page: 1,
-        price_min: "",
-        price_max: "",
-      });
+      const newParams = Object.fromEntries(searchParams);
+      newParams["category"] = String(category.id);
+      newParams["page"] = String(1);
+      const clearedParams = Object.fromEntries(
+        Object.entries(newParams).map(([key, value]) =>
+          permittedParams.includes(key) ? [key, value] : [key, ""]
+        )
+      );
+      updateUrl(clearedParams);
     } else {
       setSelectedCategory(undefined);
       onPageChange(1);
       setCatalogData(undefined);
       setSearchParams((prev) => {
-        const newParams = new URLSearchParams(prev);
+        const newParamsObj = Object.fromEntries(prev);
+        const clearedParams = Object.fromEntries(
+          Object.entries(newParamsObj).map(([key, value]) =>
+            permittedParams.includes(key) ? [key, value] : [key, ""]
+          )
+        );
+        const filteredParams = filterObjectByValues(clearedParams);
+        const newParams = new URLSearchParams(filteredParams);
         newParams.set("page", "1");
         newParams.delete("category");
         newParams.delete("price_min");

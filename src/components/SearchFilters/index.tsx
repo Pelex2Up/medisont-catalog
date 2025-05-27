@@ -12,10 +12,11 @@ import {
   Select,
   useMediaQuery,
 } from "@mui/material";
+import { useSearchParams } from "react-router";
 
 interface ISearchFilters {
   category: CategoryT | IParent;
-  updateUrl: (newParams: any) => Promise<void>;
+  updateUrl: (newParams: any) => void;
 }
 
 export interface IFilter {
@@ -34,10 +35,29 @@ const MenuProps = {
   },
 };
 
-export const SearchFilters: FC<ISearchFilters> = ({ category }) => {
+export const SearchFilters: FC<ISearchFilters> = ({ category, updateUrl }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [filters, setFilters] = useState<{ name: string; value: string }[]>();
   const isMobile = useMediaQuery("(max-width:1200px)");
+  const [params, setParams] = useSearchParams();
+
+  const handleChange = (index: number, newValue: string) => {
+    setFilters((prevFilters) => {
+      if (!prevFilters) return undefined;
+
+      const newFilters = prevFilters.map((filter, i) =>
+        i === index ? { ...filter, value: newValue } : filter
+      );
+
+      // Вызываем updateUrl с обновленными значениями уже здесь
+      const result = Object.fromEntries(
+        newFilters.map(({ name, value }) => [name, value])
+      );
+      updateUrl({ ...Object.fromEntries(params), ...result });
+
+      return newFilters;
+    });
+  };
 
   useEffect(() => {
     if (category) {
@@ -47,16 +67,6 @@ export const SearchFilters: FC<ISearchFilters> = ({ category }) => {
       if (newState) setFilters(newState);
     }
   }, [category]);
-
-  const handleChange = (index: number, newValue: string) => {
-    setFilters((prevFilters) => {
-      if (prevFilters) {
-        return prevFilters.map((filter, i) =>
-          i === index ? { ...filter, value: newValue } : filter
-        );
-      } else return undefined;
-    });
-  };
 
   if (category.params.length === 0 || !filters) {
     return null;
@@ -77,29 +87,26 @@ export const SearchFilters: FC<ISearchFilters> = ({ category }) => {
           <TuneIcon />
         </div>
         {open && (
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
+          <FormControl sx={{ minWidth: 120 }} fullWidth>
             {category.params.map((cat, index) => (
               <>
-                <InputLabel
-                  id="demo-simple-select-helper-label"
-                  key={index + "_label"}
-                >
+                <InputLabel id={cat.name + "_label"} key={index + "_label"}>
                   {cat.name}
                 </InputLabel>
                 <Select
-                  labelId="demo-simple-select-helper-label"
-                  id="demo-simple-select-helper"
+                  labelId={cat.name + "_label"}
+                  id={cat.name + "_select"}
                   value={filters[index].value}
                   key={index + "_select"}
-                  label="Age"
+                  label={cat.name}
                   onChange={(event) => handleChange(index, event.target.value)}
                   MenuProps={MenuProps}
                 >
-                  <MenuItem value="">
+                  <MenuItem value="" key={cat.name + "_zeroValue"}>
                     <em>-</em>
                   </MenuItem>
-                  {cat.values.map((val) => (
-                    <MenuItem value={val} key={val + "_value"}>
+                  {cat.values.map((val, index) => (
+                    <MenuItem value={val} key={val + index + "_value"}>
                       {val}
                     </MenuItem>
                   ))}
