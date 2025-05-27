@@ -34,9 +34,11 @@ export const CategoryItem: FC<ICategoryItem> = ({
       <span
         onClick={() => {
           setOpen(!open);
-          if (category.childs && category.childs.length === 0) {
+          // if (category.childs && category.childs.length === 0) {
+          if (category !== selected) {
             onChange(category);
           }
+          // }
         }}
         className={`${
           selected && selected.id === category.id ? styles.selected : ""
@@ -45,9 +47,35 @@ export const CategoryItem: FC<ICategoryItem> = ({
         {category.name}
         {category.childs.length ? (
           open ? (
-            <KeyboardArrowUpIcon />
+            <button
+              style={{
+                background: "transparent",
+                margin: 0,
+                padding: 0,
+                border: "none",
+                color: "currentcolor",
+                display: "flex",
+                alignItems: "center",
+                cursor: "pointer",
+              }}
+            >
+              <KeyboardArrowUpIcon />
+            </button>
           ) : (
-            <KeyboardArrowDownIcon />
+            <button
+              style={{
+                background: "transparent",
+                margin: 0,
+                padding: 0,
+                border: "none",
+                color: "currentcolor",
+                display: "flex",
+                alignItems: "flex-end",
+                cursor: "pointer",
+              }}
+            >
+              <KeyboardArrowDownIcon />
+            </button>
           )
         ) : (
           ""

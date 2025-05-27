@@ -86,35 +86,32 @@ export const SearchFilters: FC<ISearchFilters> = ({ category, updateUrl }) => {
             : "Фильтры"}
           <TuneIcon />
         </div>
-        {open && (
-          <FormControl sx={{ minWidth: 120 }} fullWidth>
-            {category.params.map((cat, index) => (
-              <>
-                <InputLabel id={cat.name + "_label"} key={index + "_label"}>
-                  {cat.name}
-                </InputLabel>
-                <Select
-                  labelId={cat.name + "_label"}
-                  id={cat.name + "_select"}
-                  value={filters[index].value}
-                  key={index + "_select"}
-                  label={cat.name}
-                  onChange={(event) => handleChange(index, event.target.value)}
-                  MenuProps={MenuProps}
-                >
-                  <MenuItem value="" key={cat.name + "_zeroValue"}>
-                    <em>-</em>
+        {open &&
+          category.params.map((cat, index) => (
+            <FormControl sx={{ minWidth: 120 }} fullWidth>
+              <InputLabel id={cat.name + "_label"} key={index + "_label"}>
+                {cat.name}
+              </InputLabel>
+              <Select
+                labelId={cat.name + "_label"}
+                id={cat.name + "_select"}
+                value={filters[index].value}
+                key={index + "_select"}
+                label={cat.name}
+                onChange={(event) => handleChange(index, event.target.value)}
+                MenuProps={MenuProps}
+              >
+                <MenuItem value="" key={cat.name + "_zeroValue"}>
+                  <em>-</em>
+                </MenuItem>
+                {cat.values.map((val, index) => (
+                  <MenuItem value={val} key={val + index + "_value"}>
+                    {val}
                   </MenuItem>
-                  {cat.values.map((val, index) => (
-                    <MenuItem value={val} key={val + index + "_value"}>
-                      {val}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </>
-            ))}
-          </FormControl>
-        )}
+                ))}
+              </Select>
+            </FormControl>
+          ))}
       </div>
     </>
   );
