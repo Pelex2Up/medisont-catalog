@@ -25,7 +25,8 @@ const style = {
 export const Header: FC<IHeader> = ({ smallHeader }) => {
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const media = useMediaQuery(`(min-width:1300px)`);
+  const media = useMediaQuery(`(min-width:1200px)`);
+  const needResize = useMediaQuery(`(min-width:1200px) and (max-width:1300px)`);
 
   return (
     <section
@@ -260,14 +261,22 @@ export const Header: FC<IHeader> = ({ smallHeader }) => {
           </a>
         </div>
       )}
-      {!smallHeader && (
-        <a
-          href="https://drive.google.com/file/d/1M8ttAtyCn8qHtX5s6gBf7pEMue4wWa3l/view?usp=sharing"
-          className={styles.button}
-        >
-          PDF-каталог
-        </a>
-      )}
+      {!smallHeader &&
+        (needResize ? (
+          <a
+            href="https://drive.google.com/file/d/1M8ttAtyCn8qHtX5s6gBf7pEMue4wWa3l/view?usp=sharing"
+            className={styles.button}
+          >
+            каталог
+          </a>
+        ) : (
+          <a
+            href="https://drive.google.com/file/d/1M8ttAtyCn8qHtX5s6gBf7pEMue4wWa3l/view?usp=sharing"
+            className={styles.button}
+          >
+            PDF-каталог
+          </a>
+        ))}
       <div className={styles["wrapper_mobileHeader"]}>
         <div className={styles["wrapper_mobileHeader_text"]}>
           <span className={styles["wrapper_mobileHeader_text_top"]}>
@@ -283,7 +292,7 @@ export const Header: FC<IHeader> = ({ smallHeader }) => {
             size={25}
             rounded
             onToggle={setOpen}
-            duration={0.5}
+            duration={0.2}
           />
         </div>
       </div>
