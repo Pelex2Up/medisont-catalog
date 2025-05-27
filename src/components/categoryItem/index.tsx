@@ -27,27 +27,31 @@ export const CategoryItem: FC<ICategoryItem> = ({
         setOpen(true);
       }
     }
+    if (category === selected) {
+      setOpen(true);
+    }
   }, [category, selected]);
 
   return (
     <div className={styles.box}>
       <span
-        onClick={() => {
-          setOpen(!open);
-          // if (category.childs && category.childs.length === 0) {
-          if (category !== selected) {
-            onChange(category);
-          }
-          // }
-        }}
         className={`${
           selected && selected.id === category.id ? styles.selected : ""
         } ${styles.wrapper}`}
       >
-        {category.name}
+        <span
+          onClick={() => {
+            if (category !== selected) {
+              onChange(category);
+            }
+          }}
+        >
+          {category.name}
+        </span>
         {category.childs.length ? (
           open ? (
             <button
+              onClick={() => setOpen(!open)}
               style={{
                 background: "transparent",
                 margin: 0,
@@ -63,6 +67,7 @@ export const CategoryItem: FC<ICategoryItem> = ({
             </button>
           ) : (
             <button
+              onClick={() => setOpen(!open)}
               style={{
                 background: "transparent",
                 margin: 0,
