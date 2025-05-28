@@ -43,7 +43,7 @@ export const usePagination = ({
       return range(1, pagesCount);
     }
 
-    if (pagesCount < 10) {
+    if (pagesCount < 6) {
       return range(1, pagesCount);
     }
 

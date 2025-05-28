@@ -20,6 +20,10 @@
     gap: 1rem;
     width: 350px;
 
+    @media screen and (max-width: 370px) {
+      width: 100%;
+    }
+
     &_available {
       margin-top: 1rem;
       display: flex;
@@ -88,6 +92,10 @@
         width: 320px;
         gap: 10px;
 
+        @media screen and (max-width: 370px) {
+          width: 100%;
+        }
+
         &_input {
           -webkit-font-smoothing: antialiased;
           appearance: none;
@@ -125,6 +133,10 @@
 
     @media screen and (max-width: 1574px) and (min-width: 1428px) {
       grid-template-columns: repeat(auto-fill, 300px);
+    }
+
+    @media screen and (max-width: 400px) {
+      grid-template-columns: repeat(auto-fill, 90vw);
     }
   }
 }

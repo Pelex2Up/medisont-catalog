@@ -285,7 +285,7 @@ export const CatalogPage: FC = () => {
                 min={priceRange.min}
                 max={priceRange.max}
                 color="primary"
-                sx={{ width: "300px", marginLeft: "10px" }}
+                sx={{ maxWidth: "300px", marginLeft: "10px", width: "92%" }}
               />
               <div className={styles.wrapper_filters_priceSlider_range}>
                 <input

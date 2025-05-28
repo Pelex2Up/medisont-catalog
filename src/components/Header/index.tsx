@@ -23,8 +23,11 @@ const style = {
 };
 
 export const Header: FC<IHeader> = ({ smallHeader }) => {
-  const [open, setOpen] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [printOpen, setPrintOpen] = useState<boolean>(false);
+  const [createOpen, setCreate] = useState<boolean>(false);
+  const [aboutOpen, setAbout] = useState<boolean>(false);
   const media = useMediaQuery(`(min-width:1200px)`);
   const needResize = useMediaQuery(`(min-width:1200px) and (max-width:1300px)`);
 
@@ -304,69 +307,105 @@ export const Header: FC<IHeader> = ({ smallHeader }) => {
             className={styles["wrapper_mobileMenu_logo"]}
           />
           <div className={styles.wrapper_mobileMenu_links}>
-            <a
-              href="https://medisont.by/pechatnaja"
-              // href="https://medisont.by/#submenu:catalog"
+            <span
               className={styles["wrapper_mobileMenu_links_navElement"]}
+              onClick={() => setPrintOpen(!printOpen)}
+              style={printOpen ? { color: "#ff0000" } : {}}
             >
               Печатаем
-              {/* <ul
-                role="menu"
-                className={
-                  styles.wrapper_mobileMenu_links_navElement_dropDownMenu
-                }
-              >
-                <div
+              {printOpen && (
+                <ul
+                  role="menu"
                   className={
-                    styles.wrapper_navBlock_navElement_dropDownMenu_content
+                    styles.wrapper_mobileMenu_links_navElement_dropDownMenu
                   }
+                  style={{ padding: 0 }}
                 >
-                  {printing.map((print, index) => (
-                    <a
-                      href={print.link}
-                      key={index + print.name}
-                      className={
-                        styles.wrapper_navBlock_navElement_dropDownMenu_item
-                      }
-                    >
-                      {print.name}
-                    </a>
-                  ))}
-                </div>
-              </ul> */}
-            </a>
+                  <div
+                    className={
+                      styles.wrapper_navBlock_navElement_dropDownMenu_content
+                    }
+                    style={{
+                      justifyContent: "center",
+                      alignItems: "center",
+                      width: "100%",
+                    }}
+                  >
+                    {printing.map((print, index) => (
+                      <a
+                        href={print.link}
+                        key={index + print.name}
+                        style={{
+                          width: "max-content",
+                          fontFamily: `'Segoe UI Semibold', sans-serif`,
+                        }}
+                        className={
+                          styles.wrapper_navBlock_navElement_dropDownMenu_item
+                        }
+                      >
+                        {print.name}
+                      </a>
+                    ))}
+                  </div>
+                  <div
+                    style={{
+                      width: "90vw",
+                      height: "1px",
+                      backgroundColor: "#7d7d7d",
+                      margin: "1rem auto",
+                    }}
+                  ></div>
+                </ul>
+              )}
+            </span>
             <span
-              // href="https://medisont.by/#submenu:izdatelstvo"
+              onClick={() => setCreate(!createOpen)}
               className={styles["wrapper_mobileMenu_links_navElement"]}
+              style={createOpen ? { color: "#ff0000" } : {}}
             >
               Издаём
-              {/* <ul
-                role="menu"
-                className={styles.wrapper_navBlock_navElement_dropDownMenu}
-              >
-                <div
-                  className={
-                    styles.wrapper_navBlock_navElement_dropDownMenu_corner
-                  }
-                />
-                <div
-                  className={
-                    styles.wrapper_navBlock_navElement_dropDownMenu_content
-                  }
+              {createOpen && (
+                <ul
+                  style={{ padding: 0 }}
+                  role="menu"
+                  className={styles.wrapper_mobileMenu_links_navElement_dropDownMenu}
                 >
-                  {realise.map((print, index) => (
-                    <a
-                      href={print.link}
-                      key={index + print.name}
-                      className={
-                        styles.wrapper_navBlock_navElement_dropDownMenu_item
-                      }
-                    >
-                      {print.name}
-                    </a>
-                  ))}
-                </div>
-              </ul> */}
+                  <div
+                    className={
+                      styles.wrapper_navBlock_navElement_dropDownMenu_content
+                    }
+                    style={{
+                      justifyContent: "center",
+                      alignItems: "center",
+                      width: "100%",
+                    }}
+                  >
+                    {realise.map((print, index) => (
+                      <a
+                        href={print.link}
+                        key={index + print.name}
+                        style={{
+                          width: "max-content",
+                          fontFamily: `'Segoe UI Semibold', sans-serif`,
+                        }}
+                        className={
+                          styles.wrapper_navBlock_navElement_dropDownMenu_item
+                        }
+                      >
+                        {print.name}
+                      </a>
+                    ))}
+                  </div>
+                  <div
+                    style={{
+                      width: "90vw",
+                      height: "1px",
+                      backgroundColor: "#7d7d7d",
+                      margin: "1rem auto",
+                    }}
+                  ></div>
+                </ul>
+              )}
             </span>
             <a
               href="https://medisont.by/suvenirnaja"
@@ -381,37 +420,53 @@ export const Header: FC<IHeader> = ({ smallHeader }) => {
               Цены
             </a>
             <span
-              // href="https://medisont.by/#submenu:onas"
+              onClick={() => setAbout(!aboutOpen)}
+              style={aboutOpen ? { color: "#ff0000" } : {}}
               className={styles["wrapper_mobileMenu_links_navElement"]}
             >
               О нас
-              {/* <ul
-                role="menu"
-                className={styles.wrapper_navBlock_navElement_dropDownMenu}
-              >
-                <div
-                  className={
-                    styles.wrapper_navBlock_navElement_dropDownMenu_corner
-                  }
-                />
-                <div
-                  className={
-                    styles.wrapper_navBlock_navElement_dropDownMenu_content
-                  }
+              {aboutOpen && (
+                <ul
+                  role="menu"
+                  style={{ padding: 0 }}
+                  className={styles.wrapper_mobileMenu_links_navElement_dropDownMenu}
                 >
-                  {about.map((print, index) => (
-                    <a
-                      href={print.link}
-                      key={index + print.name}
-                      className={
-                        styles.wrapper_navBlock_navElement_dropDownMenu_item
-                      }
-                    >
-                      {print.name}
-                    </a>
-                  ))}
-                </div>
-              </ul> */}
+                  <div
+                    className={
+                      styles.wrapper_navBlock_navElement_dropDownMenu_content
+                    }
+                    style={{
+                      justifyContent: "center",
+                      alignItems: "center",
+                      width: "100%",
+                    }}
+                  >
+                    {about.map((print, index) => (
+                      <a
+                        href={print.link}
+                        key={index + print.name}
+                        style={{
+                          width: "max-content",
+                          fontFamily: `'Segoe UI Semibold', sans-serif`,
+                        }}
+                        className={
+                          styles.wrapper_navBlock_navElement_dropDownMenu_item
+                        }
+                      >
+                        {print.name}
+                      </a>
+                    ))}
+                  </div>
+                  <div
+                    style={{
+                      width: "90vw",
+                      height: "1px",
+                      backgroundColor: "#7d7d7d",
+                      margin: "1rem auto",
+                    }}
+                  ></div>
+                </ul>
+              )}
             </span>
             <a
               href="https://medisont.by/kontakty"

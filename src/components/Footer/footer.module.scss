@@ -2,11 +2,49 @@
   height: 756px;
   width: 100%;
   background-color: #111111;
-  padding: 75px 0;
+  padding: 75px 0 120px;
 
   @media screen and (max-width: 1200px) {
     padding: 75px 1rem;
     max-width: calc(100vw - 2rem);
+    height: auto;
+  }
+
+  &_feedback {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    
+
+    a {
+      display: inline-flex;
+      gap: 10px;
+      align-items: flex-end;
+    }
+
+    &_icon {
+      display: table-cell;
+      vertical-align: middle;
+      width: 30px;
+      height: 30px;
+    }
+
+    &_text {
+      font-weight: bolder;
+      text-decoration: underline;
+      font-family: "Segoe UI Bold", sans-serif;
+      font-size: 18px;
+      color: #ffffff;
+    }
+  }
+
+  &_social {
+    padding: 45px 0 75px;
+    display: inline-flex;
+    gap: 18px;
+    flex-wrap: wrap;
   }
 
   &_upperBlock {
@@ -91,4 +129,16 @@
 
 .adressLink {
   color: rgb(255, 174, 0) !important;
+}
+
+.line {
+  width: 100%;
+  margin: 28px auto;
+  height: 1px;
+  background-color: #525252;
+  max-width: 1200px;
+}
+
+.svg {
+  stroke: #e62229;
 }
