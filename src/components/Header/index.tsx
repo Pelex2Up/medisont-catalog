@@ -368,7 +368,9 @@ export const Header: FC<IHeader> = ({ smallHeader }) => {
                 <ul
                   style={{ padding: 0 }}
                   role="menu"
-                  className={styles.wrapper_mobileMenu_links_navElement_dropDownMenu}
+                  className={
+                    styles.wrapper_mobileMenu_links_navElement_dropDownMenu
+                  }
                 >
                   <div
                     className={
@@ -429,7 +431,9 @@ export const Header: FC<IHeader> = ({ smallHeader }) => {
                 <ul
                   role="menu"
                   style={{ padding: 0 }}
-                  className={styles.wrapper_mobileMenu_links_navElement_dropDownMenu}
+                  className={
+                    styles.wrapper_mobileMenu_links_navElement_dropDownMenu
+                  }
                 >
                   <div
                     className={
