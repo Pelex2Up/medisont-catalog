@@ -18,7 +18,7 @@ import {
   TableRow,
   useMediaQuery,
 } from "@mui/material";
-import WestIcon from "@mui/icons-material/West";
+// import WestIcon from "@mui/icons-material/West";
 import parse from "html-react-parser";
 import { PathE } from "../../enum/pathE";
 import { CategoryItem } from "../../components/categoryItem";
@@ -55,6 +55,7 @@ export const ProductPage: FC = () => {
       external_id: parent.external_id,
       name: parent.name,
       image: parent.image,
+      main_tree: parent.main_tree ?? false,
       product_count: parent.product_count,
       params: parent.params,
       childs: categories.filter(
@@ -135,17 +136,14 @@ export const ProductPage: FC = () => {
 
   return (
     <div>
-      <button
+      {/* <button
         className={styles.backBtn}
         onClick={() => navigate(generatePath(PathE.HOME))}
       >
         <WestIcon /> Назад в каталог
-      </button>
+      </button> */}
       <div className={styles.wrapper}>
-        <div
-          className={styles.wrapper_filters_categories}
-          style={{ width: 300 }}
-        >
+        <div className={styles.wrapper_filters_categories}>
           <span
             onClick={() => navigate(generatePath(PathE.HOME))}
             className={styles.allCatSelector}
@@ -178,7 +176,10 @@ export const ProductPage: FC = () => {
             {itemsData[selectedIndex].name}
           </span>
           <span className={styles.wrapper_rightSide_brand}>
-            Артикул: {itemsData[selectedIndex].vendor_code}
+            Артикул: {itemsData[selectedIndex].vendor_code} | В наличии:{" "}
+            {itemsData[selectedIndex].params.find(
+              (param) => param.name === "В наличии"
+            )?.value ?? 0}
           </span>
           <span
             className={styles.wrapper_rightSide_price}
@@ -196,7 +197,7 @@ export const ProductPage: FC = () => {
               )
             }
           >
-            Добавить в корзину
+            Добавить в заказ
           </button>
           {/* {itemsData[selectedIndex].description && ( */}
           <div className={styles.wrapper_rightSide_text}>
@@ -206,50 +207,71 @@ export const ProductPage: FC = () => {
           {/* )} */}
         </div>
       </div>
-      <div className={styles.tech}>
-        <TableContainer
-          component={Paper}
-          sx={
-            isMobile
-              ? { width: "100%" }
-              : { marginLeft: "332px", width: "calc(100% - 332px)" }
-          }
-        >
-          <Table aria-label="params">
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  <span className={styles.tech_title}>
-                    Технические характеристики:{" "}
-                  </span>
-                </TableCell>
-                <TableCell />
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {itemsData[selectedIndex].params.map(
-                (param, index) =>
-                  param.name !== "Картинки" &&
-                  param.name !== "Макет товара" &&
-                  param.name !== "Акции, Хиты, Новинки" &&
-                  param.name !== "Артикул ТП" &&
-                  param.name !== "Артикул" && (
-                    <TableRow
-                      key={index}
-                      sx={{
-                        "&:last-child td, &:last-child th": { border: 0 },
-                      }}
-                    >
-                      <TableCell component="th" scope="row">
-                        {param.name}
-                      </TableCell>
-                      <TableCell align="left">{param.value}</TableCell>
-                    </TableRow>
-                  )
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
+      <div className={styles.wrapper} style={{ padding: "0 20px 40px" }}>
+        <div></div>
+        <div className={styles.tech}>
+          <TableContainer
+            component={Paper}
+            sx={
+              isMobile
+                ? {
+                    width: "100%",
+                    backgroundColor: "transparent",
+                    boxShadow: "none",
+                  }
+                : {
+                    // marginLeft: "332px",
+                    width: "100%",
+                    backgroundColor: "transparent",
+                    boxShadow: "none",
+                  }
+            }
+          >
+            <Table aria-label="params">
+              <TableHead>
+                <TableRow>
+                  <TableCell sx={{ p: "5px 10px" }} colSpan={2}>
+                    <span className={styles.tech_title}>
+                      Технические характеристики:{" "}
+                    </span>
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {itemsData[selectedIndex].params.map(
+                  (param, index) =>
+                    param.name !== "Картинки" &&
+                    param.name !== "Макет товара" &&
+                    param.name !== "Акции, Хиты, Новинки" &&
+                    param.name !== "Артикул ТП" &&
+                    param.name !== "Артикул" &&
+                    param.name !== "Поставщик" &&
+                    param.name !== "В наличии" && (
+                      <TableRow
+                        key={index}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        <TableCell
+                          component="th"
+                          scope="row"
+                          width={"40%"}
+                          sx={{ p: "5px 10px" }}
+                        >
+                          {param.name}
+                        </TableCell>
+                        <TableCell align="left" sx={{ p: "5px 10px" }}>
+                          {param.value}
+                        </TableCell>
+                      </TableRow>
+                    )
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
+        <div></div>
       </div>
     </div>
   );

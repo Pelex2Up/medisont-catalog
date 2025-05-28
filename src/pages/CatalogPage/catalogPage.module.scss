@@ -1,8 +1,8 @@
 .wrapper {
   display: flex;
-  padding: 4rem 4rem 0;
+  padding: 4rem 2rem 0;
   gap: 3rem;
-  max-width: 1450px;
+  max-width: 1600px;
   margin: 0 auto;
 
   @media screen and (max-width: 1200px) {
@@ -128,8 +128,8 @@
   &_catalog {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, 340px);
-    gap: 2rem 1rem;
+    grid-template-columns: repeat(auto-fill, 300px);
+    gap: 4rem 2rem;
 
     @media screen and (max-width: 1574px) and (min-width: 1428px) {
       grid-template-columns: repeat(auto-fill, 300px);
@@ -149,7 +149,7 @@
   margin: 0;
   padding: 0;
   border: 0;
-  color: #454545;
+  color: #000000;
   line-height: 1.35;
   cursor: pointer;
   display: inline-block;
@@ -159,7 +159,7 @@
 
   &:hover {
     font-weight: 600;
-    font-family: "Segoe UI Semibold", Arial, sans-serif;
+    font-family: "Segoe UI Bold", Arial, sans-serif;
   }
 }
 

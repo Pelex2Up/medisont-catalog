@@ -25,6 +25,9 @@ const style = {
   boxShadow: 24,
   borderRadius: "10px",
   p: 4,
+  overflowY: "scroll",
+  maxHeight: "75dvh",
+  maxWidth: '95vw'
 };
 
 export const Cart: FC = () => {
@@ -62,7 +65,7 @@ export const Cart: FC = () => {
         {isMobile ? (
           <ShoppingCartCheckoutIcon />
         ) : (
-          `Товаров в корзине: ${items.length}`
+          `Товаров в заказе: ${items.length}`
         )}
       </button>
       {open && (
@@ -100,7 +103,7 @@ export const Cart: FC = () => {
               }}
             >
               {items.length > 0
-                ? "Корзина товаров"
+                ? "Ваш заказ"
                 : "В корзине пока пусто... Добавьте товары в корзину"}
             </Typography>
             <br />
@@ -125,7 +128,7 @@ export const Cart: FC = () => {
           onClose={() => setOpenOrder(false)}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
-          sx={isMobile ? { zIndex: 999, overflowY: "scroll" } : { zIndex: 999 }}
+          sx={{ zIndex: 999 }}
         >
           <Box sx={style}>
             <div style={{ width: "100%", textAlign: "right" }}>

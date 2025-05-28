@@ -35,6 +35,11 @@ export const CategoryItem: FC<ICategoryItem> = ({
   return (
     <div className={styles.box}>
       <span
+        style={
+          category.main_tree
+            ? { fontFamily: '"Segoe UI Semibold", Arial, sans-serif' }
+            : {}
+        }
         className={`${
           selected && selected.id === category.id ? styles.selected : ""
         } ${styles.wrapper}`}

@@ -22,6 +22,7 @@ import { CategoryImageItem } from "../../components/categoryImageItem";
 import { SearchFilters } from "../../components/SearchFilters";
 
 export interface IParent {
+  main_tree: boolean;
   id: number;
   external_id: string;
   name: string;
@@ -110,6 +111,7 @@ export const CatalogPage: FC = () => {
       id: parent.id,
       external_id: parent.external_id,
       name: parent.name,
+      main_tree: parent.main_tree ?? false,
       image: parent.image,
       childs: categories.filter(
         (child) => child.parent === parent.id && !child.main_tree
@@ -127,6 +129,13 @@ export const CatalogPage: FC = () => {
       }
     }
   }, [categoriesData]);
+
+  useEffect(() => {
+    if (searchParams && searchParams.get("page")) {
+      onPageChange(Number(searchParams.get("page")));
+      setPage(Number(searchParams.get("page")));
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     if (!data && !isFetching && searchParams && location && selectedCategory) {
