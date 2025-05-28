@@ -125,7 +125,7 @@ export const Cart: FC = () => {
           onClose={() => setOpenOrder(false)}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
-          sx={{ zIndex: 999 }}
+          sx={isMobile ? { zIndex: 999, overflowY: "scroll" } : { zIndex: 999 }}
         >
           <Box sx={style}>
             <div style={{ width: "100%", textAlign: "right" }}>

@@ -39,7 +39,7 @@ export const SearchFilters: FC<ISearchFilters> = ({ category, updateUrl }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [filters, setFilters] = useState<{ name: string; value: string }[]>();
   const isMobile = useMediaQuery("(max-width:1200px)");
-  const [params, setParams] = useSearchParams();
+  const [params] = useSearchParams();
 
   const handleChange = (index: number, newValue: string) => {
     setFilters((prevFilters) => {
