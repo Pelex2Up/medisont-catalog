@@ -95,6 +95,22 @@ export const CatalogPage: FC = () => {
     });
   };
 
+  const handleInput = (side: "min" | "max", value: string) => {
+    onPageChange(1);
+    if (priceValue) {
+      setPriceValue(
+        side === "min"
+          ? [Number(value), priceValue[1]]
+          : [priceValue[0], Number(value)]
+      );
+      updateUrl({
+        price_min: side === "min" ? value : priceValue[0],
+        price_max: side === "max" ? value : priceValue[1],
+        page: 1,
+      });
+    }
+  };
+
   function filterObjectByValues(obj: Record<string, any>): Record<string, any> {
     return Object.fromEntries(
       Object.entries(obj).filter(([_, value]) => String(value).length > 0)
@@ -301,18 +317,14 @@ export const CatalogPage: FC = () => {
                   type="text"
                   className={styles.wrapper_filters_priceSlider_range_input}
                   value={priceValue[0]}
-                  onChange={(event) =>
-                    setPriceValue([Number(event.target.value), priceValue[1]])
-                  }
+                  onChange={(event) => handleInput("min", event.target.value)}
                 />
                 -
                 <input
                   type="text"
                   className={styles.wrapper_filters_priceSlider_range_input}
                   value={priceValue[1]}
-                  onChange={(event) =>
-                    setPriceValue([priceValue[0], Number(event.target.value)])
-                  }
+                  onChange={(event) => handleInput("max", event.target.value)}
                 />
               </div>
             </div>

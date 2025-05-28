@@ -9,14 +9,15 @@
   justify-content: center;
   padding: 20px 40px;
   text-decoration: none;
-  background-color: rgba(127, 127, 127, 0.165);
+  background-color: rgba(0, 0, 0, 0.736);
   border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(30px);
-  color: rgba(0, 0, 0, 0.8);
+  color: rgba(255, 255, 255, 0.8);
   font-size: 14px;
   letter-spacing: 1px;
   cursor: pointer;
   text-transform: uppercase;
+  font-family: 'Segoe UI Semibold', sans-serif;
 }
 
 .btnOrder {

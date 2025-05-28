@@ -1,4 +1,5 @@
-import { FC, useEffect, useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { FC, useEffect, useRef, useState } from "react";
 import { generatePath, useNavigate, useParams } from "react-router";
 import {
   useGetCategoriesQuery,
@@ -42,8 +43,15 @@ export const ProductPage: FC = () => {
     IParent | CategoryT
   >();
   const [itemDescription, setItemDescription] = useState<string>("");
+  const galleryRef = useRef<any>(null);
 
   const [slides, setSlides] = useState<ReactImageGalleryItem[]>();
+
+  const openFullScreen = () => {
+    if (galleryRef.current) {
+      galleryRef.current.fullScreen();
+    }
+  };
 
   function buildParentCategories(categories: CategoryT[]): IParent[] {
     const parents = categories
@@ -134,6 +142,21 @@ export const ProductPage: FC = () => {
     return <Loader />;
   }
 
+  const renderMainImage = (item: ReactImageGalleryItem) => (
+    <img
+      src={item.original}
+      alt={item.originalAlt}
+      onClick={openFullScreen} // обработчик клика на картинку
+      style={{
+        cursor: "pointer",
+        objectFit: "contain",
+        width: "100%",
+        maxWidth: "90vw",
+        maxHeight: "88dvh",
+      }}
+    />
+  );
+
   return (
     <div>
       {/* <button
@@ -165,7 +188,9 @@ export const ProductPage: FC = () => {
               additionalClass={styles.slider}
               showPlayButton={false}
               items={slides}
+              ref={galleryRef}
               startIndex={selectedIndex}
+              renderItem={renderMainImage}
               onSlide={(index) => setSelectedIndex(index)}
             />
           )}
@@ -206,8 +231,6 @@ export const ProductPage: FC = () => {
           </div>
           {/* )} */}
         </div>
-      </div>
-      <div className={styles.wrapper} style={{ padding: "0 20px 40px" }}>
         <div></div>
         <div className={styles.tech}>
           <TableContainer
@@ -230,7 +253,14 @@ export const ProductPage: FC = () => {
             <Table aria-label="params">
               <TableHead>
                 <TableRow>
-                  <TableCell sx={{ p: "5px 10px" }} colSpan={2}>
+                  <TableCell
+                    sx={{
+                      p: "5px 10px",
+                      fontFamily: '"Segoe UI Bold", sans-serif',
+                      color: "#2b2b2b",
+                    }}
+                    colSpan={2}
+                  >
                     <span className={styles.tech_title}>
                       Технические характеристики:{" "}
                     </span>
@@ -246,7 +276,8 @@ export const ProductPage: FC = () => {
                     param.name !== "Артикул ТП" &&
                     param.name !== "Артикул" &&
                     param.name !== "Поставщик" &&
-                    param.name !== "В наличии" && (
+                    param.name !== "В наличии" &&
+                    param.name !== "Бренд" && (
                       <TableRow
                         key={index}
                         sx={{
@@ -257,11 +288,22 @@ export const ProductPage: FC = () => {
                           component="th"
                           scope="row"
                           width={"40%"}
-                          sx={{ p: "5px 10px" }}
+                          sx={{
+                            p: "5px 10px",
+                            fontFamily: '"Segoe UI", sans-serif',
+                            color: "#2b2b2b",
+                          }}
                         >
                           {param.name}
                         </TableCell>
-                        <TableCell align="left" sx={{ p: "5px 10px" }}>
+                        <TableCell
+                          align="left"
+                          sx={{
+                            p: "5px 10px",
+                            fontFamily: '"Segoe UI", sans-serif',
+                            color: "#2b2b2b",
+                          }}
+                        >
                           {param.value}
                         </TableCell>
                       </TableRow>
