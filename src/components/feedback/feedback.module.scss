@@ -1,19 +1,95 @@
 .feedback {
   width: 100%;
-  max-width: 1800px;
+  //   max-width: 1800px;
+  padding: 180px 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   font-family: "Segoe UI", Arial, sans-serif;
-  gap: 2rem;
+  background-color: #ffffff;
+  margin-top: -1rem;
+
+  @media screen and (max-width: 1200px) {
+    padding: 80px 0;
+  }
 
   &_title {
     margin: 0 auto;
     font-size: 48px;
     line-height: 1.23;
+    margin-bottom: 24px;
+    color: #e62229;
+    font-family: "Segoe UI Semibold", sans-serif;
+
+    @media screen and (max-width: 1200px) {
+      font-size: 42px;
+    }
   }
 
   &_subtitle {
-    
+    font-size: 24px;
+    line-height: 1.5;
+    max-width: 600px;
+    margin: 0 auto;
+    margin-bottom: 74px;
+  }
+
+  &_form {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    @media screen and (max-width: 1200px) {
+      flex-direction: column;
+    }
+  }
+}
+
+.input {
+  border: 1px solid #000;
+  border-radius: 0;
+}
+
+.button {
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  font-family: "Segoe UI Bold", Arial, sans-serif;
+  border: 0 none;
+  border-radius: 30px;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  font-weight: 700;
+  background-image: none;
+  appearance: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  user-select: none;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  text-decoration: none;
+  height: 58px;
+  padding: 0 30px;
+  transition-property: background-color, color, border-color, box-shadow;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+  color: #ffffff;
+  background-color: #000000;
+  -webkit-border-radius: 30px;
+  font-size: 16px;
+
+  @media screen and (max-width: 1200px) {
+    width: 90vw;
+  }
+
+  &:hover {
+    background-color: #e62229;
+    color: #ffffff;
   }
 }

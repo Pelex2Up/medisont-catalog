@@ -20,6 +20,7 @@ import { useLocation, useSearchParams } from "react-router";
 import { debounce } from "lodash";
 import { CategoryImageItem } from "../../components/categoryImageItem";
 import { SearchFilters } from "../../components/SearchFilters";
+import { Feedback } from "../../components/feedback";
 
 export interface IParent {
   main_tree: boolean;
@@ -268,128 +269,132 @@ export const CatalogPage: FC = () => {
   }, [priceValue, setSearchParams]);
 
   return (
-    <div style={{ position: "relative", marginBottom: "4rem" }}>
-      {selectedCategory && (
-        <SearchFilters category={selectedCategory} updateUrl={updateUrl} />
-      )}
-      <div className={styles.wrapper}>
-        <div className={styles.wrapper_filters}>
-          <div className={styles.wrapper_filters_categories}>
-            <span
-              onClick={() => {
-                handleCategoryClick(null);
-              }}
-              className={`${!selectedCategory ? styles.selected : ""} ${
-                styles.allCatSelector
-              }`}
-            >
-              Все категории
-            </span>
-            {groupedCategories &&
-              groupedCategories.map((category) =>
-                category.product_count > 0 ? (
-                  <CategoryItem
-                    key={category.id}
-                    category={category}
-                    onChange={handleCategoryClick}
-                    selected={selectedCategory}
-                  />
-                ) : null
-              )}
-          </div>
-          {priceRange && priceValue && (
-            <div className={styles.wrapper_filters_priceSlider}>
-              <span className={styles.wrapper_filters_priceSlider_title}>
-                Цена (BYN)
+    <>
+      <Feedback />
+      <div style={{ position: "relative", marginBottom: "4rem" }}>
+        {selectedCategory && (
+          <SearchFilters category={selectedCategory} updateUrl={updateUrl} />
+        )}
+        <div className={styles.wrapper}>
+          <div className={styles.wrapper_filters}>
+            <div className={styles.wrapper_filters_categories}>
+              <span
+                onClick={() => {
+                  handleCategoryClick(null);
+                }}
+                className={`${!selectedCategory ? styles.selected : ""} ${
+                  styles.allCatSelector
+                }`}
+              >
+                Все категории
               </span>
-              <Slider
-                getAriaLabel={() => "Price range"}
-                value={priceValue}
-                onChange={handleChange}
-                valueLabelDisplay="auto"
-                min={priceRange.min}
-                max={priceRange.max}
-                color="primary"
-                sx={{ maxWidth: "300px", marginLeft: "10px", width: "92%" }}
-              />
-              <div className={styles.wrapper_filters_priceSlider_range}>
-                <input
-                  type="text"
-                  className={styles.wrapper_filters_priceSlider_range_input}
-                  value={priceValue[0]}
-                  onChange={(event) => handleInput("min", event.target.value)}
-                />
-                -
-                <input
-                  type="text"
-                  className={styles.wrapper_filters_priceSlider_range_input}
-                  value={priceValue[1]}
-                  onChange={(event) => handleInput("max", event.target.value)}
-                />
-              </div>
-            </div>
-          )}
-          <div className={styles.wrapper_filters_available}>
-            <span className={styles.wrapper_filters_available_title}>
-              Доступные товары
-            </span>
-            <div className={styles.wrapper_filters_available_box}>
-              <Checkbox checked={checked} onChange={handleCheck} /> Только
-              товары в наличии
-            </div>
-          </div>
-        </div>
-        {isFetching || isFetchingCategories ? (
-          <div className={styles.wrapper_catalog}>
-            {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((index) => (
-              <SkeletonCatalogItem key={index} />
-            ))}
-          </div>
-        ) : (
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: "4rem",
-              width: "100%",
-            }}
-          >
-            {selectedCategory && catalogData ? (
-              <div className={styles.wrapper_catalog}>
-                {catalogData.results.length ? (
-                  catalogData.results.map((item) => (
-                    <CatalogItem product={item} key={item.group_code} />
-                  ))
-                ) : (
-                  <span style={{ fontSize: "20px", margin: "0 auto" }}>
-                    Не найдено подходящих товаров...
-                  </span>
-                )}
-              </div>
-            ) : (
-              <div className={styles.wrapper_catalog}>
-                {groupedCategories.map((category) =>
+              {groupedCategories &&
+                groupedCategories.map((category) =>
                   category.product_count > 0 ? (
-                    <CategoryImageItem
+                    <CategoryItem
                       key={category.id}
                       category={category}
                       onChange={handleCategoryClick}
+                      selected={selectedCategory}
                     />
                   ) : null
                 )}
+            </div>
+            {priceRange && priceValue && (
+              <div className={styles.wrapper_filters_priceSlider}>
+                <span className={styles.wrapper_filters_priceSlider_title}>
+                  Цена (BYN)
+                </span>
+                <Slider
+                  getAriaLabel={() => "Price range"}
+                  value={priceValue}
+                  onChange={handleChange}
+                  valueLabelDisplay="auto"
+                  min={priceRange.min}
+                  max={priceRange.max}
+                  color="primary"
+                  sx={{ maxWidth: "300px", marginLeft: "10px", width: "92%" }}
+                />
+                <div className={styles.wrapper_filters_priceSlider_range}>
+                  <input
+                    type="text"
+                    className={styles.wrapper_filters_priceSlider_range_input}
+                    value={priceValue[0]}
+                    onChange={(event) => handleInput("min", event.target.value)}
+                  />
+                  -
+                  <input
+                    type="text"
+                    className={styles.wrapper_filters_priceSlider_range_input}
+                    value={priceValue[1]}
+                    onChange={(event) => handleInput("max", event.target.value)}
+                  />
+                </div>
               </div>
             )}
-            {selectedCategory && (
-              <Pagination
-                currentPage={page}
-                paginationRange={paginationRange}
-                onPageChange={handlePageChange}
-              />
-            )}
+            <div className={styles.wrapper_filters_available}>
+              <span className={styles.wrapper_filters_available_title}>
+                Доступные товары
+              </span>
+              <div className={styles.wrapper_filters_available_box}>
+                <Checkbox checked={checked} onChange={handleCheck} /> Только
+                товары в наличии
+              </div>
+            </div>
           </div>
-        )}
+          {isFetching || isFetchingCategories ? (
+            <div className={styles.wrapper_catalog}>
+              {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((index) => (
+                <SkeletonCatalogItem key={index} />
+              ))}
+            </div>
+          ) : (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "4rem",
+                width: "100%",
+              }}
+            >
+              {selectedCategory && catalogData ? (
+                <div className={styles.wrapper_catalog}>
+                  {catalogData.results.length ? (
+                    catalogData.results.map((item) => (
+                      <CatalogItem product={item} key={item.group_code} />
+                    ))
+                  ) : (
+                    <span style={{ fontSize: "20px", margin: "0 auto" }}>
+                      Не найдено подходящих товаров...
+                    </span>
+                  )}
+                </div>
+              ) : (
+                <div className={styles.wrapper_catalog}>
+                  {groupedCategories.map((category) =>
+                    category.product_count > 0 ? (
+                      <CategoryImageItem
+                        key={category.id}
+                        category={category}
+                        onChange={handleCategoryClick}
+                      />
+                    ) : null
+                  )}
+                </div>
+              )}
+              {selectedCategory && (
+                <Pagination
+                  currentPage={page}
+                  paginationRange={paginationRange}
+                  onPageChange={handlePageChange}
+                />
+              )}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+      <Feedback />
+    </>
   );
 };
