@@ -207,12 +207,14 @@ export const ProductPage: FC = () => {
                         width: "100%",
                         backgroundColor: "transparent",
                         boxShadow: "none",
+                        mt: "2rem",
                       }
                     : {
                         // marginLeft: "332px",
                         width: "100%",
                         backgroundColor: "transparent",
                         boxShadow: "none",
+                        mt: "2rem",
                       }
                 }
               >
