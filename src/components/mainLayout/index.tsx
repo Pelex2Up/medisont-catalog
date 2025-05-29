@@ -11,7 +11,7 @@ import { useMediaQuery } from "@mui/material";
 export const MainLayout: FC = () => {
   const { items } = useCart();
   const [headerSmall, setHeaderSmall] = useState<boolean>(false);
-  const media = useMediaQuery(`(min-width:1300px)`);
+  const media = useMediaQuery(`(min-width:1200px)`);
 
   useEffect(() => {
     const handleScroll = () => {

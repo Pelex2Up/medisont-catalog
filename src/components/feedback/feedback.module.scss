@@ -1,0 +1,19 @@
+.feedback {
+  width: 100%;
+  max-width: 1800px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Segoe UI", Arial, sans-serif;
+  gap: 2rem;
+
+  &_title {
+    margin: 0 auto;
+    font-size: 48px;
+    line-height: 1.23;
+  }
+
+  &_subtitle {
+    
+  }
+}
