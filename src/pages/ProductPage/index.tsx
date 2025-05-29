@@ -62,13 +62,13 @@ export const ProductPage: FC = () => {
       id: parent.id,
       external_id: parent.external_id,
       name: parent.name,
-      image: parent.image,
       main_tree: parent.main_tree ?? false,
-      product_count: parent.product_count,
-      params: parent.params,
+      image: parent.image,
       childs: categories.filter(
         (child) => child.parent === parent.id && !child.main_tree
       ),
+      params: parent.params,
+      product_count: parent.product_count,
     }));
   }
 
@@ -173,14 +173,17 @@ export const ProductPage: FC = () => {
           >
             Все категории
           </span>
-          {groupedCategories.map((category) => (
-            <CategoryItem
-              key={category.external_id}
-              category={category}
-              onChange={handleCategoryClick}
-              selected={selectedCategory}
-            />
-          ))}
+          {groupedCategories.map(
+            (category) =>
+              category.product_count > 0 && (
+                <CategoryItem
+                  key={category.external_id}
+                  category={category}
+                  onChange={handleCategoryClick}
+                  selected={selectedCategory}
+                />
+              )
+          )}
         </div>
         <div className={styles.wrapper_leftSide}>
           {slides && (
@@ -194,6 +197,89 @@ export const ProductPage: FC = () => {
               onSlide={(index) => setSelectedIndex(index)}
             />
           )}
+          {!isMobile && (
+            <div className={styles.tech}>
+              <TableContainer
+                component={Paper}
+                sx={
+                  isMobile
+                    ? {
+                        width: "100%",
+                        backgroundColor: "transparent",
+                        boxShadow: "none",
+                      }
+                    : {
+                        // marginLeft: "332px",
+                        width: "100%",
+                        backgroundColor: "transparent",
+                        boxShadow: "none",
+                      }
+                }
+              >
+                <Table aria-label="params">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell
+                        sx={{
+                          p: "5px 10px",
+                          fontFamily: '"Segoe UI Bold", sans-serif',
+                          color: "#2b2b2b",
+                        }}
+                        colSpan={2}
+                      >
+                        <span className={styles.tech_title}>
+                          Технические характеристики:{" "}
+                        </span>
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {itemsData[selectedIndex].params.map(
+                      (param, index) =>
+                        param.name !== "Картинки" &&
+                        param.name !== "Макет товара" &&
+                        param.name !== "Акции, Хиты, Новинки" &&
+                        param.name !== "Артикул ТП" &&
+                        param.name !== "Артикул" &&
+                        param.name !== "Поставщик" &&
+                        param.name !== "В наличии" &&
+                        param.name !== "Бренд" && (
+                          <TableRow
+                            key={index}
+                            sx={{
+                              "&:last-child td, &:last-child th": { border: 0 },
+                            }}
+                          >
+                            <TableCell
+                              component="th"
+                              scope="row"
+                              width={"40%"}
+                              sx={{
+                                p: "5px 10px",
+                                fontFamily: '"Segoe UI", sans-serif',
+                                color: "#2b2b2b",
+                              }}
+                            >
+                              {param.name}
+                            </TableCell>
+                            <TableCell
+                              align="left"
+                              sx={{
+                                p: "5px 10px",
+                                fontFamily: '"Segoe UI", sans-serif',
+                                color: "#2b2b2b",
+                              }}
+                            >
+                              {param.value}
+                            </TableCell>
+                          </TableRow>
+                        )
+                    )}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </div>
+          )}
         </div>
 
         <div className={styles.wrapper_rightSide}>
@@ -205,6 +291,15 @@ export const ProductPage: FC = () => {
             {itemsData[selectedIndex].params.find(
               (param) => param.name === "В наличии"
             )?.value ?? 0}
+          </span>
+          <span
+            className={styles.wrapper_rightSide_brand}
+            style={{ color: "#111" }}
+          >
+            Доступные типы нанесения:{" "}
+            {itemsData[selectedIndex].params.find(
+              (param) => param.name === "Тип нанесения"
+            )?.value || "нет"}
           </span>
           <span
             className={styles.wrapper_rightSide_price}
@@ -231,89 +326,93 @@ export const ProductPage: FC = () => {
           </div>
           {/* )} */}
         </div>
-        <div></div>
-        <div className={styles.tech}>
-          <TableContainer
-            component={Paper}
-            sx={
-              isMobile
-                ? {
-                    width: "100%",
-                    backgroundColor: "transparent",
-                    boxShadow: "none",
-                  }
-                : {
-                    // marginLeft: "332px",
-                    width: "100%",
-                    backgroundColor: "transparent",
-                    boxShadow: "none",
-                  }
-            }
-          >
-            <Table aria-label="params">
-              <TableHead>
-                <TableRow>
-                  <TableCell
-                    sx={{
-                      p: "5px 10px",
-                      fontFamily: '"Segoe UI Bold", sans-serif',
-                      color: "#2b2b2b",
-                    }}
-                    colSpan={2}
-                  >
-                    <span className={styles.tech_title}>
-                      Технические характеристики:{" "}
-                    </span>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {itemsData[selectedIndex].params.map(
-                  (param, index) =>
-                    param.name !== "Картинки" &&
-                    param.name !== "Макет товара" &&
-                    param.name !== "Акции, Хиты, Новинки" &&
-                    param.name !== "Артикул ТП" &&
-                    param.name !== "Артикул" &&
-                    param.name !== "Поставщик" &&
-                    param.name !== "В наличии" &&
-                    param.name !== "Бренд" && (
-                      <TableRow
-                        key={index}
+        {isMobile && (
+          <>
+            <div></div>
+            <div className={styles.tech}>
+              <TableContainer
+                component={Paper}
+                sx={
+                  isMobile
+                    ? {
+                        width: "100%",
+                        backgroundColor: "transparent",
+                        boxShadow: "none",
+                      }
+                    : {
+                        // marginLeft: "332px",
+                        width: "100%",
+                        backgroundColor: "transparent",
+                        boxShadow: "none",
+                      }
+                }
+              >
+                <Table aria-label="params">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell
                         sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
+                          p: "5px 10px",
+                          fontFamily: '"Segoe UI Bold", sans-serif',
+                          color: "#2b2b2b",
                         }}
+                        colSpan={2}
                       >
-                        <TableCell
-                          component="th"
-                          scope="row"
-                          width={"40%"}
-                          sx={{
-                            p: "5px 10px",
-                            fontFamily: '"Segoe UI", sans-serif',
-                            color: "#2b2b2b",
-                          }}
-                        >
-                          {param.name}
-                        </TableCell>
-                        <TableCell
-                          align="left"
-                          sx={{
-                            p: "5px 10px",
-                            fontFamily: '"Segoe UI", sans-serif',
-                            color: "#2b2b2b",
-                          }}
-                        >
-                          {param.value}
-                        </TableCell>
-                      </TableRow>
-                    )
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </div>
-        <div></div>
+                        <span className={styles.tech_title}>
+                          Технические характеристики:{" "}
+                        </span>
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {itemsData[selectedIndex].params.map(
+                      (param, index) =>
+                        param.name !== "Картинки" &&
+                        param.name !== "Макет товара" &&
+                        param.name !== "Акции, Хиты, Новинки" &&
+                        param.name !== "Артикул ТП" &&
+                        param.name !== "Артикул" &&
+                        param.name !== "Поставщик" &&
+                        param.name !== "В наличии" &&
+                        param.name !== "Бренд" && (
+                          <TableRow
+                            key={index}
+                            sx={{
+                              "&:last-child td, &:last-child th": { border: 0 },
+                            }}
+                          >
+                            <TableCell
+                              component="th"
+                              scope="row"
+                              width={"40%"}
+                              sx={{
+                                p: "5px 10px",
+                                fontFamily: '"Segoe UI", sans-serif',
+                                color: "#2b2b2b",
+                              }}
+                            >
+                              {param.name}
+                            </TableCell>
+                            <TableCell
+                              align="left"
+                              sx={{
+                                p: "5px 10px",
+                                fontFamily: '"Segoe UI", sans-serif',
+                                color: "#2b2b2b",
+                              }}
+                            >
+                              {param.value}
+                            </TableCell>
+                          </TableRow>
+                        )
+                    )}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </div>
+            <div></div>
+          </>
+        )}
       </div>
     </div>
   );
