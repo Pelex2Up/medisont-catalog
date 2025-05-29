@@ -31,7 +31,7 @@ export const MainLayout: FC = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [headerSmall, setHeaderSmall]);
+  }, [headerSmall, setHeaderSmall, media]);
 
   return (
     <div className={styles.wrapper}>

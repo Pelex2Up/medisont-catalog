@@ -374,7 +374,8 @@ export const ProductPage: FC = () => {
                         param.name !== "Артикул" &&
                         param.name !== "Поставщик" &&
                         param.name !== "В наличии" &&
-                        param.name !== "Бренд" && (
+                        param.name !== "Бренд" &&
+                        param.name !== "Тип нанесения" && (
                           <TableRow
                             key={index}
                             sx={{
