@@ -12,7 +12,12 @@ export const catalogService = createApi({
   baseQuery,
   endpoints: (build) => ({
     getCatalogData: build.mutation<CatalogResponseT, string>({
-      query: (url) => `/grouped-products/v3/${url}`,
+      query: (url) =>
+        `/grouped-products/v3/${url}${
+          url.length > 1
+            ? `&s=${import.meta.env.VITE_PAGINATION_ITEMS_COUNT}`
+            : `s=${import.meta.env.VITE_PAGINATION_ITEMS_COUNT}`
+        }`,
     }),
     getCategories: build.query<CategoryT[], void>({
       query: () => "/categories/",

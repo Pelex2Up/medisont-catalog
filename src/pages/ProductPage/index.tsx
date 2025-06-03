@@ -19,13 +19,13 @@ import {
   TableRow,
   useMediaQuery,
 } from "@mui/material";
-// import WestIcon from "@mui/icons-material/West";
 import parse from "html-react-parser";
 import { PathE } from "../../enum/pathE";
 import { CategoryItem } from "../../components/categoryItem";
 import { IParent } from "../CatalogPage";
 import { CategoryT } from "../../api/apiTypes";
 import { useCart } from "react-use-cart";
+import { Feedback } from "../../components/feedback";
 
 export const ProductPage: FC = () => {
   const isMobile = useMediaQuery("(max-width:1200px)");
@@ -137,6 +137,7 @@ export const ProductPage: FC = () => {
       navigate(generatePath(PathE.HOME + `?page=1&category=${category.id}`));
     }
   };
+  console.log(itemsData && itemsData[selectedIndex].params);
 
   if (!itemsData) {
     return <Loader />;
@@ -245,7 +246,8 @@ export const ProductPage: FC = () => {
                         param.name !== "Артикул" &&
                         param.name !== "Поставщик" &&
                         param.name !== "В наличии" &&
-                        param.name !== "Бренд" && (
+                        param.name !== "Бренд" &&
+                        param.name !== "Тип нанесения" && (
                           <TableRow
                             key={index}
                             sx={{
@@ -289,7 +291,7 @@ export const ProductPage: FC = () => {
             {itemsData[selectedIndex].name}
           </span>
           <span className={styles.wrapper_rightSide_brand}>
-            Артикул: {itemsData[selectedIndex].vendor_code} | В наличии:{" "}
+            Артикул: MSM{itemsData[selectedIndex].vendor_code} | В наличии:{" "}
             {itemsData[selectedIndex].params.find(
               (param) => param.name === "В наличии"
             )?.value ?? 0}
@@ -298,7 +300,9 @@ export const ProductPage: FC = () => {
             className={styles.wrapper_rightSide_brand}
             style={{ color: "#111" }}
           >
-            Доступные типы нанесения:{" "}
+            <strong style={{ fontFamily: '"Segoe UI Bold", sans-serif' }}>
+              Доступные типы нанесения:
+            </strong>{" "}
             {itemsData[selectedIndex].params.find(
               (param) => param.name === "Тип нанесения"
             )?.value || "нет"}
@@ -417,6 +421,7 @@ export const ProductPage: FC = () => {
           </>
         )}
       </div>
+      <Feedback />
     </div>
   );
 };

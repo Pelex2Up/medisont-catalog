@@ -65,7 +65,7 @@
       color: #000000;
       font-size: 24px;
       line-height: 1.35;
-      font-family: 'Segoe UI Semibold', sans-serif;
+      font-family: "Segoe UI Semibold", sans-serif;
     }
 
     &_brand {
@@ -74,7 +74,7 @@
       text-align: left;
       box-sizing: content-box;
       font-weight: 400;
-      font-size: 14px;
+      font-size: 17px;
       line-height: 1.55;
       color: #777;
       margin-top: 4px;
@@ -86,8 +86,8 @@
       text-align: left;
       box-sizing: content-box;
       color: #e62229;
-      font-size: 20px;
-      font-family: 'Segoe UI Bold', sans-serif;
+      font-size: 24px;
+      font-family: "Segoe UI Bold", sans-serif;
       line-height: 1.35;
       display: inline-block;
       max-width: 100%;
@@ -102,7 +102,7 @@
       box-sizing: content-box;
       font-weight: 400;
       color: #2b2b2b;
-      font-size: 14px;
+      font-size: 17px;
       line-height: 1.55;
       margin: 0;
     }
@@ -199,6 +199,10 @@
   width: 100%;
   margin: 0 auto;
 
+  th, td {
+    font-size: 17px;
+  }
+
   @media screen and (max-width: 1200px) {
     max-width: calc(100vw - 4rem);
     padding: 0 0 2rem;
@@ -211,7 +215,7 @@
     width: 100%;
     box-sizing: content-box;
     font-weight: 400;
-    font-size: 14px;
+    font-size: 17px;
     line-height: 1.55;
     color: #000000;
     margin-top: 4px;
@@ -244,7 +248,7 @@
   justify-content: center;
   align-items: center;
   height: 40px;
-  font-size: 14px;
+  font-size: 17px;
   padding-left: 30px;
   padding-right: 30px;
   margin-left: 5px;

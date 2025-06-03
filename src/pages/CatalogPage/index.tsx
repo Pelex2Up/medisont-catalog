@@ -270,7 +270,6 @@ export const CatalogPage: FC = () => {
 
   return (
     <>
-      <Feedback />
       <div style={{ position: "relative", marginBottom: "4rem" }}>
         {selectedCategory && (
           <SearchFilters category={selectedCategory} updateUrl={updateUrl} />
