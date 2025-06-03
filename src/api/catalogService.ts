@@ -15,8 +15,8 @@ export const catalogService = createApi({
       query: (url) =>
         `/grouped-products/v3/${url}${
           url.length > 1
-            ? `&s=${import.meta.env.VITE_PAGINATION_ITEMS_COUNT}`
-            : `s=${import.meta.env.VITE_PAGINATION_ITEMS_COUNT}`
+            ? `&page_size=${import.meta.env.VITE_PAGINATION_ITEMS_COUNT}`
+            : `page_size=${import.meta.env.VITE_PAGINATION_ITEMS_COUNT}`
         }`,
     }),
     getCategories: build.query<CategoryT[], void>({

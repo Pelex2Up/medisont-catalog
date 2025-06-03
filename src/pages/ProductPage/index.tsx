@@ -325,12 +325,9 @@ export const ProductPage: FC = () => {
           >
             Добавить в заказ
           </button>
-          {/* {itemsData[selectedIndex].description && ( */}
           <div className={styles.wrapper_rightSide_text}>
-            {/* {parse(itemsData[selectedIndex].description)} */}
             {parse(itemDescription)}
           </div>
-          {/* )} */}
         </div>
         {isMobile && (
           <>
