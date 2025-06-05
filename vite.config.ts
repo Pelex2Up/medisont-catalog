@@ -7,10 +7,11 @@ export default defineConfig({
     allowedHosts: [
       "localhost", // можно добавить localhost для локальной разработки
       "dev.mobydick.by",
+      "supermerch.medisont.by",
     ],
     proxy: {
       "/api": {
-        target: "https://dev.mobydick.by",
+        target: "https://supermerch.medisont.by",
         changeOrigin: true,
       },
     },
