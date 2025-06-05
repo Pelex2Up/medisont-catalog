@@ -10,7 +10,7 @@ services:
       sh -c "yarn install &&
              yarn build &&
              yarn serve"
-networks:
-  default:
-    external: true
-    name: postgres_network  
+# networks:
+#   default:
+#     external: true
+#     name: postgres_network  
