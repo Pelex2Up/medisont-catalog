@@ -3,7 +3,7 @@ services:
     build:
       context: .
     ports:
-      - "127.0.0.1:8030:3001"
+      - "127.0.0.1:8030:3000"
     volumes:
       - ".:/catalog"
     command: >
