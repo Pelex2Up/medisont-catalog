@@ -3,15 +3,13 @@ services:
     build:
       context: .
     ports:
-      - "3000:3000"
+      - "127.0.0.1:8030:3000"
     volumes:
-      - ".:/app"
+      - ".:/catalog"
     command: >
       sh -c "yarn install &&
              yarn build &&
              yarn serve"
-
-             version: "3.9"   
 networks:
   default:
     external: true
