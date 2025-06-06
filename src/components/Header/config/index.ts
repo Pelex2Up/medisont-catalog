@@ -7,7 +7,10 @@ export const printing = [
   { link: "https://medisont.by/bloki-dlja-zapisej", name: "Блоки для записи" },
   { link: "https://medisont.by/bloknity", name: "Блокноты" },
   { link: "https://medisont.by/buklety", name: "Буклеты" },
-  { link: "https://medisont.by/ezhednevniki", name: "Ежедневники" },
+  {
+    link: "https://supermerch.medisont.by/?category=16&page=1&price_min=0.1&price_max=370.94",
+    name: "Ежедневники",
+  },
   { link: "https://medisont.by/kalendary-domiki", name: "Календарь домик" },
   {
     link: "https://medisont.by/kalendari-kvartalnye",
@@ -23,7 +26,10 @@ export const printing = [
   { link: "https://medisont.by/otkrytki", name: "Открытки" },
   { link: "https://medisont.by/pakety", name: "Пакеты" },
   { link: "https://medisont.by/papki", name: "Папки" },
-  { link: "https://medisont.by/ruchki", name: "Ручки" },
+  {
+    link: "https://supermerch.medisont.by/?category=76&page=1&price_min=0.1&price_max=370.94",
+    name: "Ручки",
+  },
   { link: "https://medisont.by/sertifikaty", name: "Сертификаты" },
   { link: "https://medisont.by/flaera", name: "Флаера" },
   { link: "https://medisont.by/etiketki", name: "Этикетки" },
