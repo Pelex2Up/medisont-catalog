@@ -125,12 +125,12 @@ export const Header: FC<IHeader> = ({ smallHeader }) => {
           </ul>
         </span>
         <a
-          href="https://medisont.by/suvenirnaja"
+          href="https://supermerch.medisont.by/"
           className={`${smallHeader && styles.miniHeader_link} ${
             styles["wrapper_navBlock_navElement"]
           }`}
         >
-          Брендируем
+          SuperMerch!
         </a>
         <a
           href="https://medisont.by/price"
@@ -402,10 +402,10 @@ export const Header: FC<IHeader> = ({ smallHeader }) => {
               )}
             </span>
             <a
-              href="https://medisont.by/suvenirnaja"
+              href="https://supermerch.medisont.by/"
               className={styles["wrapper_mobileMenu_links_navElement"]}
             >
-              Брендируем
+              SuperMerch!
             </a>
             <a
               href="https://medisont.by/price"
