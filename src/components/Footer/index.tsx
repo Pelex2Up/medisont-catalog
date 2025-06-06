@@ -137,7 +137,7 @@ export const Footer: FC = () => {
               исконтные карты
             </a>
             <br />
-            <a href="https://www.supermerch.medisont.by/?category=16&page=1&price_min=0.1&price_max=370.94">
+            <a href="https://supermerch.medisont.by/?category=16&page=1&price_min=0.1&price_max=370.94">
               <strong style={{ fontFamily: `Segoe UI Bold` }}>Е</strong>
               жедневники
             </a>
@@ -217,7 +217,7 @@ export const Footer: FC = () => {
           <div className={styles["wrapper_upperBlock_kontakty_lowerText"]}>
             <a href="https://www.medisont.by/priglashenija">Приглашения</a>
             <br />
-            <a href="https://www.supermerch.medisont.by/?category=76&page=1&price_min=0.1&price_max=370.94">
+            <a href="https://supermerch.medisont.by/?category=76&page=1&price_min=0.1&price_max=370.94">
               <strong style={{ fontFamily: "Segoe UI Bold" }}>Р</strong>учки
             </a>
             <br />
